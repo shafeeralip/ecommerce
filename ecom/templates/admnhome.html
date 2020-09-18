@@ -1,0 +1,44 @@
+{% extends 'admnbase.html' %}
+{% load static %}
+{% block content %}
+<div class="container pt-3 jumbotron">
+    <nav class="navbar navbar-light bg-secondary justify-content-between">
+        <a class="navbar-brand">Product details</a>
+        <form action="#">
+        <input type="submit" class="btn btn-outline-dark my-2 my-sm-0" style="margin-left: 250%;" value="Logout">
+    </form>
+        <form class="form-inline" action="" method="POST">
+          {% csrf_token %}
+          <input class="form-control mr-sm-2" name="username" type="search" placeholder="Search" aria-label="Search">
+          <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="Search" >
+
+        </form>
+      </nav>
+<a href="{% url 'addproduct' %}" class="btn btn-primary mt-3 " value="Add_Products" style="float:right">Add_Products </a>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Product Id</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Product Type</th>
+        <th scope="col">Product Quantity</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for product in product %}
+      <tr>
+       
+        <td>{{product.id}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.product_type}}</td>
+        <td>{{product.product_quantity}}</td>
+        <td>${{product.price}}</td>
+        <td><a href="" class="btn btn-danger btn-outline-danger " value="DELETE">DELETE </a></td>
+        <td><a href="" class="btn btn-warning btn-outline-warning " value="UPDATE">UPDATE </a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+{% endblock %}

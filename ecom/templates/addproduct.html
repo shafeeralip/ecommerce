@@ -1,0 +1,105 @@
+{% extends 'admnbase.html' %}
+{% load static %}
+{% block content %}
+
+
+<!------ Include the above in your HEAD tag ---------->
+
+<form class="form-horizontal " style="margin: 0 auto;
+width:70%;">
+<fieldset>
+
+<!-- Form Name -->
+<legend>PRODUCTS</legend>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>  
+  <div class="col-md-4">
+  <input id="product_name" name="product_name" placeholder="PRODUCT NAME" class="form-control input-md" required="" type="text">
+    
+  </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label" for="product_categorie">PRODUCT Type</label>
+    <div class="col-md-4">
+      <select id="product_categorie" name="product_categorie" class="form-control">
+        <option>shirt</option>
+        <option>pant</option>
+        <option>watch</option>
+        <option>sunglass</option>
+        <option>shoe</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="product_categorie">PRODUCT CATEGORY</label>
+    <div class="col-md-4">
+      <select id="product_categorie" name="product_categorie" class="form-control">
+        <option>Apparel</option>
+        <option>Acessories</option>
+      </select>
+    </div>
+  </div>
+<!-- Text input-->
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="available_quantity">AVAILABLE QUANTITY</label>  
+  <div class="col-md-4">
+  <input id="available_quantity" name="available_quantity" placeholder="AVAILABLE QUANTITY" class="form-control input-md" required="" type="text">
+    
+  </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label" for="product_description">PRODUCT ATTRIBUTE</label>
+    <div class="col-md-4">                     
+      <textarea class="form-control" id="product_description" name="product_description"></textarea>
+    </div>
+  </div>
+
+<!-- Text input-->
+
+
+<!-- Textarea -->
+
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" >Price</label>  
+  <div class="col-md-4">
+  <input id="percentage_discount" name="percentage_discount"  class="form-control input-md" required="" type="text">
+    
+  </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label" for="percentage_discount">Discount Price</label>  
+    <div class="col-md-4">
+    <input id="percentage_discount" name="percentage_discount"  class="form-control input-md" required="" type="text">
+      
+    </div>
+  </div>
+<!-- Text input-->
+
+
+ <!-- File Button --> 
+<div class="form-group">
+  <label class="col-md-4 control-label" for="filebutton">Product image</label>
+  <div class="col-md-4">
+    <input id="filebutton" name="filebutton" class="input-file" type="file">
+  </div>
+</div>
+<!-- File Button --> 
+
+
+<!-- Button -->
+
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Button</button>
+  </div>
+  </div>
+
+</fieldset>
+</form>
+
+{%endblock%}
