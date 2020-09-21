@@ -16,7 +16,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-t-50 p-b-90">
-				<form class="login100-form validate-form flex-sb flex-w" action="{% url 'home' %}" method="POST">
+				<form class="login100-form validate-form flex-sb flex-w" method="POST" action="{%url 'admn'%}">
                     {% csrf_token %}
 					<span class="login100-form-title p-b-51">
 						Login
@@ -34,15 +34,14 @@
 						<span class="focus-input100"></span>
 					</div>
 					
-					
-
 					<div class="container-login100-form-btn m-t-17">
-                        <input type="submit" class="login100-form-btn" value="LOGIN">
-						
-						
+                        <input type="submit" class="login100-form-btn" value="LOGIN">						
 					</div>
 
 				</form>
+				{% for message in messages %}
+                    <p style="color: red;">{{message}}</p>
+                   {% endfor %}
 			</div>
 		</div>
 	</div>
