@@ -39,10 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'prod',
-    'admn'
+    'admn',
+    'cart',
+    'ca',
+
 ]
 
+'cart.context_processor.cart_total_amount'
+
+CART_SESSION_ID = 'cart'
+
 MIDDLEWARE = [
+    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -50,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+   
+
 ]
 
 ROOT_URLCONF = 'ecom.urls'
@@ -118,7 +128,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+CART_SESSION_ID = 'cart'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -131,5 +141,3 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/img/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img')
-
-
