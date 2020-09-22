@@ -5,13 +5,26 @@ from cart.cart import Cart
 
 # Create your views here.
 def cart_detail(request):
-    return render(request,'cart.html')
+    if request.COOKIES.get('user'):
+        return render(request,'cart.html')
+    return render(request,'login.html')
+    
+        
+    
 
 def cart_add(request, id):
     cart = Cart(request)
     product = Product.objects.get(id=id)
     cart.add(product=product)
     return redirect("/")
+
+
+def cart_adding(request, id):
+    cart = Cart(request)
+    product = Product.objects.get(id=id)
+    cart.add(product=product)
+    return redirect('/prodv/%d/' %product.id)
+
 
 def item_clear(request, id):
     cart = Cart(request)

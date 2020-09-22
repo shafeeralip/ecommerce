@@ -15,17 +15,22 @@ def home(request):
     glass= Product.objects.filter(product_type='sunglass')
     return render(request,'index.html',{'product': product,'tshirt':tshirt,'pant':pant,'glass':glass})
 
-def login(request):
-    if request.method=='POST':
+def userlogin(request):
+    if request.COOKIES.get('user'):
+        return redirect(home)
+    elif request.method=='POST':
         username=request.POST['username']
         password=request.POST['password']
         user=auth.authenticate(username=username,password=password)
         if user is not None:
-             auth.login(request,user)
-             return redirect(home)
+            response=redirect(home)
+            response.set_cookie('user','user')
+            return response
+            
         else:
-            messages.error(request,'**invalid credentions')
-            return HttpResponseRedirect(request.path_info)
+            dicti={'error':"inavlid credention"}
+
+            return render(request,'login.html',dicti)
 
     return render(request,'login.html')
 
@@ -50,9 +55,10 @@ def register(request):
     return render(request,'login.html')
 
 
-def logout(request):
-    auth.logout(request)
-    return redirect('/')
+def userlogout(request):
+    response =redirect(home)
+    response.delete_cookie('user')
+    return response
     
 
 def view(request,id):

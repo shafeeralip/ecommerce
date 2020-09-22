@@ -8,16 +8,16 @@
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
-						<form action="{% url 'login'%}" method="POST" >
+						<form action="{% url 'userlogin' %}" method="POST" >
 							{% csrf_token %}
 							<input name="username" type="text" placeholder="Name" />
 							<input name="password" type="password" placeholder="password" />
 							
 							<button type="submit" class="btn btn-default">Login</button>
 						</form>
-						{%for message in messages %}
-						<p style="color: red;">{{message}}</p>
-						{%endfor%}
+						
+						<p style="color: red;">{{error}}</p>
+					
 					</div><!--/login form-->
 				</div>
 				<div class="col-sm-1">

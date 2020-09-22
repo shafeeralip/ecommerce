@@ -18,7 +18,7 @@
                             <div class="col-sm-6">
                                 <h1><span>E</span>-SHOPPER</h1>
                                 <h2>Free E-Commerce Template</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                <p>kicked off for good not too long ago. Having officially started in the 1960s, none of the products found popularity until the ’90s. But when they did finally make it big, they really capitalized on it.  </p>
                                 <button type="button" class="btn btn-default get">Get it now</button>
                             </div>
                             <div class="col-sm-6">
@@ -30,7 +30,7 @@
                             <div class="col-sm-6">
                                 <h1><span>E</span>-SHOPPER</h1>
                                 <h2>100% Responsive Design</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                <p>kicked off for good not too long ago. Having officially started in the 1960s, none of the products found popularity until the ’90s. But when they did finally make it big, they really capitalized on it. </p>
                                 <button type="button" class="btn btn-default get">Get it now</button>
                             </div>
                             <div class="col-sm-6">
@@ -43,7 +43,7 @@
                             <div class="col-sm-6">
                                 <h1><span>E</span>-SHOPPER</h1>
                                 <h2>Free Ecommerce Template</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                                <p>kicked off for good not too long ago. Having officially started in the 1960s, none of the products found popularity until the ’90s. But when they did finally make it big, they really capitalized on it. </p>
                                 <button type="button" class="btn btn-default get">Get it now</button>
                             </div>
                             <div class="col-sm-6">
@@ -125,13 +125,13 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordian" href="#womens">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#jeans">
                                         <span class="badge pull-right"><i class="fa fa-plus"></i></span>
                                        Jeans
                                     </a>
                                 </h4>
                             </div>
-                            <div id="womens" class="panel-collapse collapse">
+                            <div id="jeans" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ul>
                                         <li><a href="#">Fendi</a></li><br>
@@ -189,8 +189,8 @@
                                 <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
                                 <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
                                 <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-                                <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-                                <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+                                <!-- <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
+                                <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li> -->
                             </ul>
                         </div>
                     </div><!--/brands_products-->
@@ -262,7 +262,7 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="{{tshirt.imageURL}}" alt="" />
+                                            <a href="{% url 'prodview' tshirt.id %}">  <img src="{{tshirt.imageURL}}" alt="" /></a>
                                             <h2>${{tshirt.price}}</h2>
                                             <p>{{tshirt.name}}</p>
                                             <a href="{% url 'cart_add' tshirt.id %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
@@ -280,7 +280,7 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="{{pant.imageURL}}" alt="" />
+                                            <a href="{% url 'prodview' pant.id %}"> <img src="{{pant.imageURL}}" alt="" /></a>
                                             <h2>${{pant.price}}</h2>
                                             <p>{{pant.name}}</p>
                                             <a href="{% url 'cart_add' pant.id %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
@@ -299,7 +299,7 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="{{glass.imageURL}}" alt="" />
+                                            <a href="{% url 'prodview' glass.id %}">  <img src="{{glass.imageURL}}" alt="" /></a>
                                             <h2>${{glass.price}}</h2>
                                             <p>{{glass.name}}</p>
                                             <a href="{% url 'cart_add' glass.id %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
