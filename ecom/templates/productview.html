@@ -1,0 +1,254 @@
+
+		{% extends 'base.html' %}
+		{% block content %}
+		{% load static %}
+			
+		
+ 		<!-- Google font -->
+ 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+ 		<!-- Bootstrap -->
+ 		<link type="text/css" rel="stylesheet" href="{%static 'prd/css/bootstrap.min.css' %}"/>
+
+ 		<!-- Slick -->
+ 		<link type="text/css" rel="stylesheet" href="{% static 'prd/css/slick.css' %}"/>
+ 		<link type="text/css" rel="stylesheet" href="{% static 'prd/css/slick-theme.css' %}"/>
+
+ 		
+ 		<link type="text/css" rel="stylesheet" href="{% static 'prd/css/style.css' %}"/>
+
+	
+
+		<!-- BREADCRUMB -->
+		<div id="breadcrumb" class="section">
+			<!-- container -->
+			<div class="container"></div>
+			
+			</div>
+			
+		</div>
+		
+
+		
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					
+					
+					<div class="col-md-3 ">
+						<div >
+							<div class="product-preview">
+								<img src="{{product.imageURL}}" alt="">
+							</div>
+						</div>
+					</div>
+				
+					<div class="col-md-9 " >
+						<div class="product-details"  >
+							<h2 class="product-name">{{product.name}}</h2>
+							<div>
+								<div class="product-rating">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star-o"></i>
+								</div>
+								<!-- <a class="review-link" href="#">10 Review(s) | Add your review</a> -->
+							</div>
+							<div>
+								<h3 class="product-price">${{product.discount_price}} <del class="product-old-price">${{product.price}}.00</del></h3>
+								<span class="product-available">In Stock</span>
+							</div>
+							<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> -->
+
+							<div class="product-options">
+								<label>
+									Size
+									<select class="input-select">
+										<option value="0">X</option>
+									</select>
+								</label>
+								<label>
+									Color
+									<select class="input-select">
+										<option value="0">Red</option>
+									</select>
+								</label>
+							</div>
+
+							<div class="">
+								<div class="qty-label">
+									Qty
+									<div class="">
+										<input type="number">
+										<!-- <span class="qty-up">+</span>
+										<span class="qty-down">-</span> -->
+									</div>
+								</div >
+								<a href="#" class="btn btn-warning add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+							</div>
+
+							
+
+							<ul class="product-links">
+								<li>Category:</li>
+								<li><a href="#">{{product.product_type}}</a></li>
+								<li><a href="#">{{product.product_category}}</a></li>
+							</ul>
+
+							
+
+						</div>
+					</div>
+					
+					<div class="col-md-12">
+						<div id="product-tab">
+							<!-- product tab nav -->
+							<ul class="tab-nav">
+								<li class="active"><a data-toggle="tab" href="#tab1">Attribute</a></li>
+								
+							</ul>
+							
+							<div class="tab-content">
+								<!-- tab1  -->
+								<div id="tab1" class="tab-pane fade in active">
+									<div class="row">
+										<div class="col-md-12">
+											<p>{{product.attribute}}</p>
+										</div>
+									</div>
+								</div>
+								
+								
+								<!-- /tab3  -->
+							</div>
+							<!-- /product tab content  -->
+						</div>
+					</div>
+					<!-- /product tab -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- Section -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="section-title text-center">
+							<h3 class="title">Related Products</h3>
+						</div>
+					</div>
+
+					<!-- product -->
+					<div class="col-md-3 col-xs-6">
+						<div class="product">
+							<div class="product-img">
+								<img src="./img/product01.png" alt="">
+								<div class="product-label">
+									<span class="sale">-30%</span>
+								</div>
+							</div>
+							<div class="product-body">
+								<p class="product-category">Category</p>
+								<h3 class="product-name"><a href="#">product name goes here</a></h3>
+								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								<div class="product-rating">
+								</div>
+							
+							</div>
+							<div class="add-to-cart">
+								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-3 col-xs-6">
+						<div class="product">
+							<div class="product-img">
+								<img src="./img/product02.png" alt="">
+								<div class="product-label">
+									<span class="new">NEW</span>
+								</div>
+							</div>
+							<div class="product-body">
+								<p class="product-category">Category</p>
+								<h3 class="product-name"><a href="#">product name goes here</a></h3>
+								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								
+							</div>
+							<div class="add-to-cart">
+								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+							</div>
+						</div>
+					</div>
+					<!-- /product -->
+
+					<div class="clearfix visible-sm visible-xs"></div>
+
+					<!-- product -->
+					<div class="col-md-3 col-xs-6">
+						<div class="product">
+							<div class="product-img">
+								<img src="./img/product03.png" alt="">
+							</div>
+							<div class="product-body">
+								<p class="product-category">Category</p>
+								<h3 class="product-name"><a href="#">product name goes here</a></h3>
+								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+							
+							</div>
+							<div class="add-to-cart">
+								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+							</div>
+						</div>
+					</div>
+					<!-- /product -->
+
+					<!-- product -->
+					<div class="col-md-3 col-xs-6">
+						<div class="product">
+							<div class="product-img">
+								<img src="./img/product04.png" alt="">
+							</div>
+							<div class="product-body">
+								<p class="product-category">Category</p>
+								<h3 class="product-name"><a href="#">product name goes here</a></h3>
+								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								<div class="product-rating">
+								</div>
+							
+							</div>
+							<div class="add-to-cart">
+								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+							</div>
+						</div>
+					</div>
+					<!-- /product -->
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /Section -->
+
+	
+
+		<!-- jQuery Plugins -->
+		<script src="{% static 'prd/js/jquery.min.js' %}"></script>
+		<script src="{% static 'prd/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'prd/js/slick.min.js' %}"></script>
+		<script src="{%static 'prd/js/nouislider.min.js' %}"></script>
+		<script src="{% static 'prd/js/jquery.zoom.min.js'%}"></script>
+		<script src="{% static 'prd/js/main.js' %}"></script>
+{%endblock%}

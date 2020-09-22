@@ -213,7 +213,7 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                             <div class="productinfo text-center">
-                                            <img src="{{product.imageURL}} " alt="ss">  
+                                            <a href="{% url 'prodview' product.id %}"><img src="{{product.imageURL}} " alt="ss"></a>
                                                 <h2>${{product.price}}</h2>
                                                 <p>{{product.name}}</p>
                                             
