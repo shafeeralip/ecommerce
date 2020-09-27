@@ -10,13 +10,7 @@
 
 }(this, function() {
 
-/*!
- * GMaps.js v0.4.9
- * http://hpneo.github.com/gmaps/
- *
- * Copyright 2013, Gustavo Leon
- * Released under the MIT License.
- */
+
 
 if (!(typeof window.google === 'object' && window.google.maps)) {
   throw 'Google Maps API is required. Please register the following JavaScript library http://maps.google.com/maps/api/js?sensor=true.'

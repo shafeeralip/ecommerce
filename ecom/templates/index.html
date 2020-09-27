@@ -216,8 +216,8 @@
                                             <a href="{% url 'prodview' product.id %}"><img src="{{product.imageURL}} " alt="ss"></a>
                                                 <h2>${{product.price}}</h2>
                                                 <p>{{product.name}}</p>
-                                            
-                                                <a href="{% url 'cart_add' product.id %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <button data-product={{product.id}} data-action="add" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                                
                                             </div>	
                                     </div>
                                 
@@ -265,7 +265,7 @@
                                             <a href="{% url 'prodview' tshirt.id %}">  <img src="{{tshirt.imageURL}}" alt="" /></a>
                                             <h2>${{tshirt.price}}</h2>
                                             <p>{{tshirt.name}}</p>
-                                            <a href="{% url 'cart_add' tshirt.id %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                         
                                     </div>
@@ -283,7 +283,7 @@
                                             <a href="{% url 'prodview' pant.id %}"> <img src="{{pant.imageURL}}" alt="" /></a>
                                             <h2>${{pant.price}}</h2>
                                             <p>{{pant.name}}</p>
-                                            <a href="{% url 'cart_add' pant.id %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                         
                                     </div>
@@ -302,7 +302,7 @@
                                             <a href="{% url 'prodview' glass.id %}">  <img src="{{glass.imageURL}}" alt="" /></a>
                                             <h2>${{glass.price}}</h2>
                                             <p>{{glass.name}}</p>
-                                            <a href="{% url 'cart_add' glass.id %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                         
                                     </div>

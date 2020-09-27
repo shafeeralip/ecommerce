@@ -23,6 +23,18 @@ outline: none;
 text-decoration:none;
 }
 
+#cart-total{
+	display: block;
+	text-align: center;
+	color:#fff;
+	background-color: red;
+	width: 20px;
+	height: 25px;
+	border-radius: 50%;
+	font-size: 14px;
+}
+
+
 a:focus {
   outline:none;
   outline-offset: 0;

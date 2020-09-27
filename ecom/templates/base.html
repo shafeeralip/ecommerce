@@ -12,7 +12,64 @@
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
     
 	<link href="{% static 'main.css' %}" rel="stylesheet">
-	
+	<style>
+		
+#cart-total{
+	display: block;
+	text-align: center;
+	color:#fff;
+	background-color: red;
+	width: 20px;
+	height: 25px;
+	border-radius: 50%;
+	font-size: 14px;
+}
+
+	</style>
+
+	<script type="text/javascript">
+		var user ='{{request.user}}'
+
+		function getToken(name) {
+			let cookieValue = null;
+			if (document.cookie && document.cookie !== '') {
+				var cookies = document.cookie.split(';');
+				for (let i = 0; i < cookies.length; i++) {
+					var cookie = cookies[i].trim();
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) === (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken');
+
+
+		function getCookie(name){
+			var cookieArr = document.cookie.split(";");
+
+			for(var i =0;i< cookieArr.length;i++){
+				var cookiePair = cookieArr[i].split("=");
+				if(name == cookiePair[0].trim()){
+					return decodeURIComponent(cookiePair[1])
+				}
+			}
+			return null;
+
+		}
+		var cart =JSON.parse(getCookie('cart'))
+		if(cart == undefined){
+			cart={}
+			console.log("cart was created")
+			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+			
+		}
+		console.log("cart:", cart)
+
+	</script>
    
 </head><!--/head-->
 
@@ -53,15 +110,20 @@
 						</div>
 					</div>
 					<div class="col-sm-6">
+						<div style="float: right;"><p id="cart-total">{{cartItems}}</p></div> 
 						<div class="shop-menu pull-right">
+							
 							<ul class="nav navbar-nav">
 								
-								<li><a href="{% url 'cart_detail' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								{% if request.COOKIES.user%}
+		 							   
+								
+								
+								{%  if request.user.is_authenticated %}
 								<li><a href="{%url 'userlogout'%}"><i class="fa fa-lock"></i> Logout</a></li>
 								{%else%}
 								  <li><a href="{%url 'userlogin'%}"><i class="fa fa-lock"></i> Login</a></li>
 								{%endif%}
+								<li><a href="{% url 'cart_detail' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 							</ul>
 						</div>
 					</div>
@@ -175,7 +237,7 @@
 	</footer><!--/Footer-->
 	
 
-  
+	<script src="{% static 'js/cart.js' %}"></script>
     <script src="{% static 'js/jquery.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 	<script src="{% static 'js/jquery.scrollUp.min.js' %}"></script>

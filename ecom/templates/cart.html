@@ -2,12 +2,19 @@
 {% block content %}
 {% load static %}
 {% load cart_tag %}
-	<section id="cart_items">
+
+	 <section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
 				  <li><a href="/">Home</a></li>
 				  <li class="active">Shopping Cart</li>
+				</ol>
+				<ol class="breadcrumb">
+					<li><h3>Items: <strong>{{order.get_cart_items}}</strong></h3></li>
+					
+					<li style="float: right;"><h3>Total:<strong> ${{order.get_cart_total}}</strong></h3></li>
+						
 				</ol>
 			</div>
 			<div class="table-responsive cart_info">
@@ -23,31 +30,31 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for key,value in request.session.cart.items %}
+						{% for item in items %}
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="{{value.image}}" style="width: 35px" alt=""></a>
+								<a href=""><img src="{{item.product.imageURL}}" style="width: 35px" alt=""></a>
 							</td>
 							<td class="cart_description">
-								<h4 style="padding-bottom: 5%;"><a href="">{{value.name}}</a></h4>
-								<p>{{value.id}}</p>
+								<h4 style="padding-bottom: 5%;"><a href="">{{item.product.name}}</a></h4>
+								<p></p>
 							</td>
 							<div class="pt-5">
-							<td class="cart_price">
-								<p>${{value.price}}</p>
+							<td class="cart_price ">
+								<p>${{item.product.price}}</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href="{% url 'item_increment' value.product_id %}"> + </a>
-									<input class="cart_quantity_input" type="number" name="quantity" value="{{value.quantity}}" >
-									<a class="cart_quantity_down" href="{% url 'item_decrement' value.product_id %}"> - </a>
+									<a data-product={{item.product.id}} data-action="add" class="cart_quantity_up update-cart" href=""> + </a>
+									<input  class="cart_quantity_input" type="" name="quantity" value="{{item.quantity}}" >
+									<a data-product={{item.product.id}} data-action="remove" class="cart_quantity_down update-cart" href=""> - </a>
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">${{ value.price|multiply:value.quantity }}</p>
+								<p class="cart_total_price">${{item.get_total}}</p>
 							</td>
 							<td class="cart_delete">
-								<a class="cart_quantity_delete" href="{% url 'item_clear' value.product_id %} "><i class="fa fa-times"></i></a>
+								<a  data-product={{item.product.id}} data-action="delete" class="cart_quantity_delete update-cart" href=" "><i class="fa fa-times"></i></a>
 							</td>
 						</div>
 						</tr>
@@ -63,11 +70,12 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="total_area">
-					<a class="btn btn-default update" href="{% url 'cart_clear' %}">Clear</a>
-					<a class="btn btn-default check_out" href="">Check Out</a>
+						<!--  -->
+					<a href="" class="btn btn-default update">Clear</a>
+					<a class="btn btn-default check_out" href="{% url 'checkout' %}">Check Out</a>
 				</div>
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 {% endblock %}
