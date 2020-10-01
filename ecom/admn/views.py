@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from prod.models import Product
+from prod.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login,logout
 from django.views.decorators.cache import cache_control
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
@@ -17,7 +18,7 @@ def admn(request):
     password=request.POST['password']
     user=authenticate(username=username,password=password)
     if user:
-        if username =='shafeerali' and password =='123':
+        if username =='shafee' and password =='123':
           login(request,user)
          
           return redirect(home)
@@ -32,8 +33,8 @@ def admn(request):
           
 @login_required(login_url='/admin')
 def home(request):
-  prod=Product.objects.all()
-  return render(request,'adhome.html',{'product':prod})
+ 
+  return render(request,'adhome.html')
   
         
    
@@ -47,7 +48,7 @@ def productadd(request):
     attribute =request.POST['attribute']
     price=request.POST['price']
     discount_price=request.POST['discount_price']
-    image=request.POST['image']
+    image=request.FILES.get('myfile')
     prod=Product(image=image,name=name,product_type=product_type,product_category=product_category,product_quantity=product_quantity,attribute=attribute , price= price ,discount_price=discount_price)
     prod.save();
       
@@ -98,3 +99,19 @@ def update(request,id):
 
   else:
     return render(request,'update.html',{'product':product})  
+
+
+@login_required(login_url='/')
+def adproduct(request):
+  prod=Product.objects.all()
+  return render(request,'adproduct.html',{'product':prod})
+
+@login_required(login_url='/')
+def order(request):
+  order=Order.objects.all()
+ 
+  
+   
+  return render(request,'adorder.html',{'order':order})
+ 
+ 

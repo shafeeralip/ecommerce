@@ -1,395 +1,208 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>ecomerse</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<style>
-body {
-	color: #566787;
-	background: #f5f5f5;
-	font-family: 'Varela Round', sans-serif;
-	font-size: 13px;
-}
-.table-responsive {
-    margin: 30px 0;
-}
-.table-wrapper {
-	background: #fff;
-	padding: 20px 25px;
-	border-radius: 3px;
-	min-width: 1000px;
-	box-shadow: 0 1px 1px rgba(0,0,0,.05);
-}
-.table-title {        
-	padding-bottom: 15px;
-	background: #435d7d;
-	color: #fff;
-	padding: 16px 30px;
-	min-width: 100%;
-	margin: -20px -25px 10px;
-	border-radius: 3px 3px 0 0;
-}
-.table-title h2 {
-	margin: 5px 0 0;
-	font-size: 24px;
-}
-.table-title .btn-group {
-	float: right;
-}
-.table-title .btn {
-	color: #fff;
-	float: right;
-	font-size: 13px;
-	border: none;
-	min-width: 50px;
-	border-radius: 2px;
-	border: none;
-	outline: none !important;
-	margin-left: 10px;
-}
-.table-title .btn i {
-	float: left;
-	font-size: 21px;
-	margin-right: 5px;
-}
-.table-title .btn span {
-	float: left;
-	margin-top: 2px;
-}
-table.table tr th, table.table tr td {
-	border-color: #e9e9e9;
-	padding: 12px 15px;
-	vertical-align: middle;
-}
-table.table tr th:first-child {
-	width: 60px;
-}
-table.table tr th:last-child {
-	width: 100px;
-}
-table.table-striped tbody tr:nth-of-type(odd) {
-	background-color: #fcfcfc;
-}
-table.table-striped.table-hover tbody tr:hover {
-	background: #f5f5f5;
-}
-table.table th i {
-	font-size: 13px;
-	margin: 0 5px;
-	cursor: pointer;
-}	
-table.table td:last-child i {
-	opacity: 0.9;
-	font-size: 22px;
-	margin: 0 5px;
-}
-table.table td a {
-	font-weight: bold;
-	color: #566787;
-	display: inline-block;
-	text-decoration: none;
-	outline: none !important;
-}
-table.table td a:hover {
-	color: #2196F3;
-}
-table.table td a.edit {
-	color: #FFC107;
-}
-table.table td a.delete {
-	color: #F44336;
-}
-table.table td i {
-	font-size: 19px;
-}
-table.table .avatar {
-	border-radius: 50%;
-	vertical-align: middle;
-	margin-right: 10px;
-}
-.pagination {
-	float: right;
-	margin: 0 0 5px;
-}
-.pagination li a {
-	border: none;
-	font-size: 13px;
-	min-width: 30px;
-	min-height: 30px;
-	color: #999;
-	margin: 0 2px;
-	line-height: 30px;
-	border-radius: 2px !important;
-	text-align: center;
-	padding: 0 6px;
-}
-.pagination li a:hover {
-	color: #666;
-}	
-.pagination li.active a, .pagination li.active a.page-link {
-	background: #03A9F4;
-}
-.pagination li.active a:hover {        
-	background: #0397d6;
-}
-.pagination li.disabled i {
-	color: #ccc;
-}
-.pagination li i {
-	font-size: 16px;
-	padding-top: 6px
-}
-.hint-text {
-	float: left;
-	margin-top: 10px;
-	font-size: 13px;
-}    
-/* Custom checkbox */
-.custom-checkbox {
-	position: relative;
-}
-.custom-checkbox input[type="checkbox"] {    
-	opacity: 0;
-	position: absolute;
-	margin: 5px 0 0 3px;
-	z-index: 9;
-}
-.custom-checkbox label:before{
-	width: 18px;
-	height: 18px;
-}
-.custom-checkbox label:before {
-	content: '';
-	margin-right: 10px;
-	display: inline-block;
-	vertical-align: text-top;
-	background: white;
-	border: 1px solid #bbb;
-	border-radius: 2px;
-	box-sizing: border-box;
-	z-index: 2;
-}
-.custom-checkbox input[type="checkbox"]:checked + label:after {
-	content: '';
-	position: absolute;
-	left: 6px;
-	top: 3px;
-	width: 6px;
-	height: 11px;
-	border: solid #000;
-	border-width: 0 3px 3px 0;
-	transform: inherit;
-	z-index: 3;
-	transform: rotateZ(45deg);
-}
-.custom-checkbox input[type="checkbox"]:checked + label:before {
-	border-color: #03A9F4;
-	background: #03A9F4;
-}
-.custom-checkbox input[type="checkbox"]:checked + label:after {
-	border-color: #fff;
-}
-.custom-checkbox input[type="checkbox"]:disabled + label:before {
-	color: #b8b8b8;
-	cursor: auto;
-	box-shadow: none;
-	background: #ddd;
-}
-/* Modal styles */
-.modal .modal-dialog {
-	max-width: 400px;
-}
-.modal .modal-header, .modal .modal-body, .modal .modal-footer {
-	padding: 20px 30px;
-}
-.modal .modal-content {
-	border-radius: 3px;
-	font-size: 14px;
-}
-.modal .modal-footer {
-	background: #ecf0f1;
-	border-radius: 0 0 3px 3px;
-}
-.modal .modal-title {
-	display: inline-block;
-}
-.modal .form-control {
-	border-radius: 2px;
-	box-shadow: none;
-	border-color: #dddddd;
-}
-.modal textarea.form-control {
-	resize: vertical;
-}
-.modal .btn {
-	border-radius: 2px;
-	min-width: 100px;
-}	
-.modal form label {
-	font-weight: normal;
-}	
-</style>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Admin</title>
+
+  <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
+
+  
+  <link href="{% static 'admn/sb-admin-2.min.css' %}" rel="stylesheet">
 
 </head>
-<body>
-<div class="container-xl">
-	<div class="table-responsive">
-		<div class="table-wrapper">
-			<div class="table-title">
-				<div class="row">
-					<div class="col-6">
-						<h2> Product<b>Details</b></h2>
-					</div>
-					<div class="col-6">
-						<a href="{% url 'productadd' %}" class="btn btn-success" ><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
-						<a href="{% url 'logout' %}" class="btn btn-primary" > <span>Logout</span></a>						
-					</div>
-				</div>
-            </div>
-            <form class="form-inline" action="" method="POST" style="float:right">
-                {% csrf_token %}
-                <input type="text" id="myInput" onkeyup=" myFunction()" placeholder="Search" class="form-control mr-sm-2"  >
+
+<body id="page-top">
+
+ 
+  <div id="wrapper">
+
+    
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+     
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+        <div class="sidebar-brand-text mx-3">Eshop</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home' %}">
+          <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
+          <span>Home</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+    
+    
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'adproduct' %}">
+          <!-- <i class="fas fa-fw fa-chart-area"></i> -->
+          <span>Products</span></a>
+      </li>
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'order' %}">
+          <!-- <i class="fas fa-fw fa-chart-area"></i> -->
+          <span>Orders</span></a>
+      </li>
+
       
-              </form>
-			<table  id="myTable" class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th>
-							product_id
-						</th>
-						<th>Product Name</th>
-						<th>Product Type</th>
-						<th>Product Quantity</th>
-						<th>Price</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-                    {% for product in product %}
-					<tr>
-						<td>
-							{{product.id}}
-						</td>
-						<td>{{product.name}}</td>
-						<td>{{product.product_type}}</td>
-						<td>{{product.product_quantity}}</td>
-						<td>${{product.price}}</td>
-						<td><a href=# data-target="#my_modal" data-toggle="modal" class="identifyingClass" data-id="{{ product.id }}" data-url="{% url 'delete' product.id %}" >Open Modal</a> </td>
-						<td>
-						
-							<a href="{% url 'update' product.id %}" class="edit" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="{% url 'delete' product.id %}" onclick="window.mytest()" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					{% endfor %}
-					
-				</tbody>
-			</table>
+     
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <!-- <i class="fas fa-fw fa-chart-area"></i> -->
+          <span>Customer</span></a>
+      </li>
+
+      
+      <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <!-- <i class="fas fa-fw fa-chart-area"></i> -->
+          <span>User</span></a>
+      </li>
+
+     
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+  
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          
+         
+
+         
+          <ul class="navbar-nav ml-auto">
+
+            
+           
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+           
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">shafeer</span>
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              </a>
+              
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+        
+        <div class="container-fluid">
+			{% block content %}
+
 			
-		</div>
-	</div>        
-</div>
-<h2>Modal</h2>
-<div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="my_modalLabel">
-<div class="modal-dialog" role="dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modal Title</h4>
-        </div>
-        <div class="modal-body">
+			{%endblock%}
+
+          
+          
 
         
-            <input type="hidden" name="hiddenValue" id="hiddenValue" value="{{ product.id }}" />
+          
+
         </div>
-        <div class="modal-footer">
-			
-			<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-			<form action="{% url 'delete' product.id %}" method="POST">
-			<button type="submit" class="btn btn-primary">Yes</button>
-			</form>
-        </div>
+       
+
+      </div>
+     
+
+
     </div>
-</div>
-<script type="text/javascript">
-$(function () {
- $(".identifyingClass").click(function () {
-     var my_id_value = $(this).data('id');
-	 url:''
-     $(".modal-body #hiddenValue").val(my_id_value);
- })
-});
-</script>
-<script>
-	
-	window.mytest=function(){
-		var isValid =confirm("are you sure do you want delete ?");
-		if(!isValid){
-			event.preventDefault();
-			alert("it wont be delete");
-		}
-	}
-	function myFunction() {
-	  var input, filter, table, tr, td, i, txtValue;
-	  input = document.getElementById("myInput");
-	  filter = input.value.toUpperCase();
-	  table = document.getElementById("myTable");
-	  tr = table.getElementsByTagName("tr");
-	  for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[1];
-		if (td) {
-		  txtValue = td.textContent || td.innerText;
-		  if (txtValue.toUpperCase().indexOf(filter) > -1) {
-			tr[i].style.display = "";
-		  } else {
-			tr[i].style.display = "none";
-		  }
-		}       
-	  }
-	}
-	</script>
+   
+  </div>
+ 
+  
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+ 
+  <script src="{% static 'admn/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'admn/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  
+  <script src="{% static 'admn/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  
+  <script src="{% static 'admn/js/sb-admin-2.min.js' %}"></script>
+
+  
+  <script src="{% static 'admn/vendor/chart.js/Chart.min.js' %}"></script>
+
+
+  <script src="{% static 'admn/js/demo/chart-area-demo.js' %}"></script>
+  <script src="{% static 'admn/js/demo/chart-pie-demo.js' %}"></script>
+
 </body>
+
 </html>
-<!-- add Modal HTML
-<div id="addEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form>
-				<div class="modal-header">						
-					<h4 class="modal-title">Add Employee</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Address</label>
-						<textarea class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
-					</div>					
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add">
-				</div>
-			</form>
-		</div>
-	</div>
-</div> -->
+

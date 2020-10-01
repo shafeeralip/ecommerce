@@ -6,6 +6,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from ca.utils import cookieCart,cartData
 from django.contrib.auth import authenticate, login,logout
+import json
+import requests
+import razorpay
 # Create your views here.
 
 def home(request):
@@ -77,6 +80,7 @@ def register(request):
         username=request.POST['username']
         email=request.POST['email']
         password=request.POST['password']
+        number=request.POST['number']
         dicti = {"username":username,"email":email}
         if User.objects.filter(username=username).exists():
             messages.info(request,'username already taken')
@@ -84,11 +88,54 @@ def register(request):
         elif User.objects.filter(email=email).exists():
             messages.info(request,'email already taken')
             return render(request, "login.html", dicti)
+        elif User.objects.filter(last_name=number).exists():
+            messages.info(request,'mobail number already taken')
+            return render(request, "login.html", dicti)
 
         else:
-            user=User.objects.create_user(username=username,email=email,password=password)
-            user.save()
-            return redirect(userlogin)
+            
+
+            user=User.objects.create_user(username=username,email=email,password=password,last_name=number,first_name=password)
+            user.save();
+            number=request.POST['number']
+            user=User.objects.get(last_name=number)
+            print(user)
+       
+            if user:
+                username = user.username
+                password=user.first_name
+                request.session['username'] =  username
+                request.session['password'] = password
+                
+
+                url = "https://d7networks.com/api/verifier/send"
+                number=str(91) + number
+                
+                payload = {'mobile': number,
+                'sender_id': 'SMSINFO',
+                'message': 'Your otp code is {code}',
+                'expiry': '900'}
+                files = [
+
+                ]
+                headers = {
+                'Authorization': 'Token ae88b588f853eccd3e1b1c8befd530c5d68c47ea'
+                }
+
+                response = requests.request("POST", url, headers=headers, data = payload, files = files)
+
+                print(response.text.encode('utf8'))
+                data=response.text.encode('utf8')
+                datadict=json.loads(data.decode('utf-8'))
+
+                id=datadict['otp_id']
+                status=datadict['status']
+                print('id:',id)
+                request.session['id'] = id
+            
+                return render(request,'otp.html')
+
+            
     return render(request,'login.html')
 
 
@@ -113,10 +160,137 @@ def view(request,id):
 
 
 def checkout(request):
+   
+    client=razorpay.Client(auth=("rzp_test_7i01eG7knm1628","K9H5VQX0OHOsFwPMDY8DCMzp"))
     data = cartData(request)
     cartItems=data['cartItems']
     order=data['order']
     items=data['items']
+    order_currency='USD'
+    order_receipt = 'order-rctid-11'
+
+    if request.user.is_authenticated:
+        
+        order_amount=order.get_cart_total
+        order_amount *= 100
+       
+    else:
+       
+        order_amount=order['get_cart_total']
+        order_amount *= 100
+        
+       
+
+
+    response = client.order.create(dict(
+        amount=order_amount,
+        currency=order_currency,
+        receipt=order_receipt,
+        payment_capture='0'
+        
+        ))
+    
+    order_id=response['id']
+    
      
-    context = {'items':items,'order':order,'cartItems':cartItems}
+    context = {'items':items,'order':order,'cartItems':cartItems,'order_id':order_id}
     return render(request,'checkout.html',context)
+
+
+def mobail(request):
+
+    if request.method=='POST':
+        number = request.POST['number']
+        user=User.objects.get(last_name=number)
+        print(user)
+       
+        if user:
+            username = user.username
+            password=user.first_name
+            request.session['username'] =  username
+            request.session['password'] = password
+            
+
+            url = "https://d7networks.com/api/verifier/send"
+            number=str(91) + number
+            
+            payload = {'mobile': number,
+            'sender_id': 'SMSINFO',
+            'message': 'Your otp code is {code}',
+            'expiry': '900'}
+            files = [
+
+            ]
+            headers = {
+            'Authorization': 'Token ae88b588f853eccd3e1b1c8befd530c5d68c47ea'
+            }
+
+            response = requests.request("POST", url, headers=headers, data = payload, files = files)
+
+            print(response.text.encode('utf8'))
+            data=response.text.encode('utf8')
+            datadict=json.loads(data.decode('utf-8'))
+
+            id=datadict['otp_id']
+            status=datadict['status']
+            print('id:',id)
+            request.session['id'] = id
+           
+            return render(request,'otp.html')
+
+        else:
+            messages.info(request,'mobail number not registerd')
+            return render(request,'mobail.html')
+
+            
+            
+        
+# {"otp_id":"6939d5de-8517-4788-b556-054404497e8d","status":"open","expiry":900}'
+
+            
+    return render(request,'mobail.html')
+
+
+
+def otp(request):
+    if request.method=='POST':
+        otp=request.POST['otp']
+       
+        id=request.session['id']
+        url = "https://d7networks.com/api/verifier/verify"
+
+        payload = {'otp_id': id,
+        'otp_code': otp}
+        files = [
+
+        ]
+        headers = {
+        'Authorization': 'Token ae88b588f853eccd3e1b1c8befd530c5d68c47ea'
+        }
+
+        response = requests.request("POST", url, headers=headers, data = payload, files = files)
+
+        print(response.text.encode('utf8'))
+        data=response.text.encode('utf8')
+        datadict=json.loads(data.decode('utf-8'))
+        status=datadict['status']
+        
+        if status=='success':
+            username = request.session['username']   
+            password =  request.session['password']
+            per=authenticate(username=username,password=password)
+
+            login(request,per)
+
+            return redirect(home)
+
+        
+        else:
+            messages.info(request,'incorrectotp')
+            return render(request,'otp.html')
+
+
+
+        
+
+    return render(request,'otp.html')

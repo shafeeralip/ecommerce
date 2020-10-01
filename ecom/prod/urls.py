@@ -8,6 +8,9 @@ urlpatterns=[
     path('userlogout',views.userlogout,name='userlogout'),
     path('prodv/<int:id>/',views.view,name='prodview'),
     path("checkout",views.checkout,name='checkout'),
+    path("mobail",views.mobail,name='mobail'),
+    path("otp",views.otp,name='otp'),
+    
 
     
     
