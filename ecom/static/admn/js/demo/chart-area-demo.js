@@ -29,6 +29,9 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
+var dict='{{chart_values}}'
+console.log(dict)
+
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
@@ -46,7 +49,9 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 590.0, 0],
+      
+    
     }],
   },
   options: {

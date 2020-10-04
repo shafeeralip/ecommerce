@@ -13,4 +13,8 @@ urlpatterns=[
     path("update/<int:id>/",views.update,name='update'),
     path('adproduct',views.adproduct,name='adproduct'),
     path('order',views.order,name='order'),
+    path("approve/<int:id>/",views.approve,name='approve'),
+    path('customer',views.customer,name='customer'),
+    path("customerdel/<int:id>/",views.customerdel,name="customerdel" ),
+    path('user',views.user,name='user'),
 ]

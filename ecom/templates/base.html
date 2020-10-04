@@ -110,7 +110,11 @@
 						</div>
 					</div>
 					<div class="col-sm-6">
+						{%  if request.user.is_authenticated %}
+						<a href="{%url 'orderss' %} " style="margin-left: 290px;" class="btn btn-warning">Orders</a>
+						{%endif%}
 						<div style="float: right;"><p id="cart-total">{{cartItems}}</p></div> 
+						
 						<div class="shop-menu pull-right">
 							
 							<ul class="nav navbar-nav">
@@ -120,11 +124,13 @@
 								
 								{%  if request.user.is_authenticated %}
 								<li><a href="{%url 'userlogout'%}"><i class="fa fa-lock"></i> Logout</a></li>
+								
 								{%else%}
 								  <li><a href="{%url 'userlogin'%}"><i class="fa fa-lock"></i> Login</a></li>
 								{%endif%}
 								<li><a href="{% url 'cart_detail' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 							</ul>
+							
 						</div>
 					</div>
 				</div>

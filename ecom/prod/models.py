@@ -12,16 +12,28 @@ class Customer(models.Model):
 
 
 class  Product(models.Model):
+    PRODUCTTYPE={
+    ("shirt", "shirt"), 
+    ("t-shirt", "t-shirt"), 
+    ("pant", "pant"), 
+    ("jeans", "jeans"), 
+    ("sunglass", "sunglass"), 
+    ("shoe", "shoe"), 
+    }
+    PRODUCTCATEGORY={
+    ("Apparel", "Apparel"), 
+    ("Acessories", "Acessories"), }
+
     image = models.ImageField(null=True ,blank=True)
     name = models.CharField(max_length=300)
     price = models.FloatField()
    
     product_quantity=models.IntegerField()
-    product_category= models.CharField(max_length=300)
-    product_type= models.CharField(max_length=300)
+    product_category= models.CharField(max_length=300,choices=PRODUCTCATEGORY)
+    product_type= models.CharField(max_length=300,choices=PRODUCTTYPE)
     attribute = models.TextField(max_length=1000, verbose_name='attribute')
     
-    discount_price=models.FloatField()
+    
     
 
     def __str__(self):
@@ -43,9 +55,19 @@ class Order(models.Model):
     date_orderd = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False,null=True,blank=True)
     transaction_id=models.CharField(max_length=200,null=True)
+    approve= models.BooleanField(default=False,null=True,blank=True)
+
+
+
+   
 
     def __str__(self):
         return str(self.id)
+    
+    # def __iter__(self):
+    #     return  [field.value_to_string(self) for field in Order.customer]
+
+
 
     @property
     def get_cart_total(self):
@@ -61,7 +83,6 @@ class Order(models.Model):
     
  
     @property
-
     def shipping(self):
         shipping = True
         return shipping

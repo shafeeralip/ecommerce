@@ -34,6 +34,19 @@ def home(request):
  
     return render(request,'index.html',{'product': product,'tshirt':tshirt,'pant':pant,'glass':glass,'cartItems':cartItems})
 
+def orders(request):
+    customer=request.user.customer
+    orders =Order.objects.filter(customer=customer,complete=True)
+    items=[]
+    for order in orders:
+        orderitems=OrderItem.objects.filter(order=order)
+        for orderitem in orderitems:
+            items.append(orderitem)
+
+    print("items:",items)
+    
+    return render(request,'userorder.html',{'order':order,'items':items})
+
 def userlogin(request):
 
     if request.method =='POST':
@@ -160,6 +173,9 @@ def view(request,id):
 
 
 def checkout(request):
+
+   
+
    
     client=razorpay.Client(auth=("rzp_test_7i01eG7knm1628","K9H5VQX0OHOsFwPMDY8DCMzp"))
     data = cartData(request)
@@ -194,7 +210,9 @@ def checkout(request):
     
      
     context = {'items':items,'order':order,'cartItems':cartItems,'order_id':order_id}
+    
     return render(request,'checkout.html',context)
+    
 
 
 def mobail(request):

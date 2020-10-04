@@ -10,6 +10,7 @@ urlpatterns=[
     path("checkout",views.checkout,name='checkout'),
     path("mobail",views.mobail,name='mobail'),
     path("otp",views.otp,name='otp'),
+    path("orders",views.orders,name='orderss'),
     
 
     

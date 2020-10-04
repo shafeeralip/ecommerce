@@ -40,14 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'prod',
     'admn',
-    'cart',
     'ca',
 
 ]
 
-'cart.context_processor.cart_total_amount'
 
-CART_SESSION_ID = 'cart'
+
 
 MIDDLEWARE = [
     
@@ -88,7 +86,7 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'ecom',
         'USER':'postgres',
         'PASSWORD':'postgres',

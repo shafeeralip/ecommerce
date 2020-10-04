@@ -20,14 +20,14 @@
 <div class="control-group">
   <label class="control-label" for="full_name">Product Name</label>
   <div class="controls">
-    <input id="full_name" name="name" placeholder="Productname" class="input-xlarge" type="text">
+    <input id="full_name" name="name" placeholder="Productname" class="input-xlarge" type="text" required>
     <p class="help-block"></p>
   </div>
 </div>
 <div class="control-group">
     <label class="control-label" for="course">Product Type</label>
     <div class="controls">
-      <select id="course" name="product_type" class="input-xlarge">
+      <select id="course" name="product_type" class="input-xlarge" required>
         <option>Select Type</option>
         <option>shirt</option>
         <option>t-shirt</option>
@@ -42,7 +42,7 @@
 <div class="control-group">
     <label class="control-label" for="course">Product Category</label>
     <div class="controls">
-      <select id="course" name="product_category" class="input-xlarge">
+      <select id="course" name="product_category" class="input-xlarge" required>
         <option>Select Category</option>
         <option>Apparel</option>
         <option>Acessories</option>
@@ -55,14 +55,14 @@
 <div class="control-group">
   <label class="control-label" >Quantity</label>
   <div class="controls">
-    <input  name="product_quantity" type="text">
+    <input  name="product_quantity" type="text" required>
     <p class="help-block"></p>
   </div>
 </div>
 <div class="control-group">
     <label class="control-label" >Product Attribute</label>
     <div class="controls">                     
-      <textarea id="Address" name="attribute"></textarea>
+      <textarea id="Address" name="attribute" required></textarea>
     </div>
   </div>
 
@@ -70,23 +70,17 @@
 <div class="control-group">
   <label class="control-label" >Price</label>
   <div class="controls">
-    <input id="mother_name" name="price" placeholder="price" class="input-xlarge" type="text">
+    <input id="mother_name" name="price" placeholder="price" class="input-xlarge" type="text" required>
     <p class="help-block"></p>
   </div>
 </div>
-<div class="control-group">
-    <label class="control-label" for="mother_name">After discount </label>
-    <div class="controls">
-      <input id="mother_name" name="discount_price" placeholder="after discount price" class="input-xlarge" type="text">
-      <p class="help-block"> </p>
-    </div>
-  </div>
+
 
 <!-- File Button --> 
 <div class="control-group">
   <label class="control-label" for="photo">Product Photo</label>
   <div class="controls">
-    <input  name="myfile" class="input-file" type="file" >
+    <input  name="myfile" class="input-file" type="file" required>
   </div>
 </div>
 
@@ -97,11 +91,11 @@
     <button type="submit" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Save</button>
    
 </div>
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+<!-- <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog"> -->
   
       <!-- Modal content-->
-      <div class="modal-content">
+      <!-- <div class="modal-content">
         <div class="modal-header">
             <div class="container-fluid">
                 <div class="row">
@@ -132,7 +126,7 @@
       </div>
   
     </div>
-  </div>
+  </div> -->
 
             
 </div>
