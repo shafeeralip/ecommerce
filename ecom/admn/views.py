@@ -38,9 +38,9 @@ def home(request):
   year = datetime.now().year
   month = datetime.now().month
   today=date.today()
+  print("hello",today)
 
-  today_order = Order.objects.filter(date_orderd__date = today)
- 
+  
   values = []
   for i in range(0,12):
     chart_order = Order.objects.filter(date_orderd__year = year,date_orderd__month = i)
@@ -64,7 +64,8 @@ def home(request):
       order_total = 0
     total_income = total_income + order_total
 
-  today_order=Order.objects.filter(date_orderd__date = today)
+  today_order=Order.objects.filter(date_orderd__date = today,complete=True)
+  print("hi",today_order)
   today_income=0
   for order in today_order:
     try:
@@ -72,6 +73,7 @@ def home(request):
     except:
       order_total = 0
     today_income = today_income + order_total
+
   customer=Customer.objects.all()
 
   
@@ -85,6 +87,7 @@ def home(request):
    
 @login_required(login_url='/')    
 def productadd(request):
+  pd=Product.objects.all()
   if request.method =='POST':
     name=request.POST['name']
     product_type=request.POST['product_type']
@@ -99,7 +102,7 @@ def productadd(request):
       
     return redirect('/admin/adproduct')
 
-  return render(request,'productadd.html')
+  return render(request,'productadd.html',{'pd':pd})
 
 
 
@@ -129,14 +132,17 @@ def update(request,id):
     product_quantity=request.POST['product_quantity']
     attribute =request.POST['attribute']
     price=request.POST['price']
-    image=request.POST['image']
     product.name=name
     product.product_type=product_type
     product.product_category=product_category
     product.product_quantity=product_quantity
     product.attribute=attribute
     product.price=price
-    
+    if 'image' not in request.POST:
+      image=request.POST['image']
+    else:
+      image=product.image
+       
     product.image=image
     product.save()
     return redirect('/admin/adproduct')
@@ -153,8 +159,6 @@ def adproduct(request):
 @login_required(login_url='/')
 def order(request):
   order=Order.objects.all()
-  
-  
    
   return render(request,'adorder.html',{'order':order})
  
@@ -163,28 +167,50 @@ def order(request):
 @login_required(login_url='/') 
 def approve(request,id):
 
-  order=Order.objects.get(id=id)
+  if request.method=='POST':
 
-  if order.approve==False:
-    order.approve=True
+    order=Order.objects.get(id=id)
+    order.value=request.POST['status']
+    print("hi",order.value)
+
+    order.save();
+    return redirect('order')
+    
+  order=Order.objects.all()
+  return render(request,'adorder.html',{'order':order})
+
+
+
+
+  # if order.approve==False:
+  #   order.approve=True
    
-  elif order.approve==True:
-    order.approve=False
+  # elif order.approve==True:
+  #   order.approve=False
   
-  order.save();
-  return redirect('order')
+  
+  
 
 
 @login_required(login_url='/') 
 def customer(request):
   
   customer=Customer.objects.all()
-  context={
-    'customer':customer
-  }
+  item=[]
+  for cu in customer:
+    order=Order.objects.filter(customer=cu,complete=True)
+    value=order.count()
+    item.append(value)
   
+  print("itms:",item)
+    
+  context={
+    'customer':customer,
+    'item':item
+  }
+  values=zip(customer,item)
  
-  return render(request,'adcustomer.html',{'customer':customer})
+  return render(request,'adcustomer.html',{'value':values})
 
 @login_required(login_url='/')   
 def customerdel(request,id):

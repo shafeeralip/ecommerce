@@ -26,7 +26,7 @@
 							<td class="price">Quantity</td>
 							<td class="quantity">Total Price</td>
 							<td class="total">Date_of_Orderd</td>
-							<td></td>
+							<td>status</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -49,7 +49,10 @@
 								<p>${{order.get_cart_total}}</p>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">{{order.date_orderd}}</p>
+								<p class="">{{order.date_orderd.date}}</p>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price" style="color: chocolate;">{{order.value}}</p>
 							</td>
 							
 						</div>

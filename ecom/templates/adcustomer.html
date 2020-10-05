@@ -38,20 +38,23 @@
 						id
 						</th>
 						<th>customer name</th>
-					
 						<th>email</th>
+						<th>NO.Orders</th>
 						
 					</tr>
 				</thead>
 				<tbody>
-				 {% for customer in customer%}
+				 {% for customer,item in value%}
 					<tr>
 						<td>
 						{{customer.id}}	
 						</td>
 						<td>{{customer.name}}</td>
 							
-						<td>{{customer.email}}</td>					
+						<td>{{customer.email}}</td>	
+						
+						<td>{{item}}</td>
+						<td></td>				
 				<td><a href="{% url 'customerdel' customer.id %}" onclick="window.mytest()" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
 					</tr>
 				{%endfor%}

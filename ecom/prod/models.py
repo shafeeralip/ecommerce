@@ -50,12 +50,24 @@ class  Product(models.Model):
 
 
 class Order(models.Model):
+
+    STATUS={
+        ("pending","pending"),
+        ("shipped","shipped"),
+        ("out for delivery","out for delivery"),
+        ("completed","completed")
+
+    }
+
+
     customer = models.ForeignKey(Customer,on_delete=models.SET_NULL, null=True,blank=True)
     product = models.ForeignKey(Product,on_delete=models.SET_NULL, null=True,blank=True)
     date_orderd = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False,null=True,blank=True)
     transaction_id=models.CharField(max_length=200,null=True)
     approve= models.BooleanField(default=False,null=True,blank=True)
+    value=models.CharField(default='pending',max_length=200,null=True )
+    
 
 
 

@@ -265,7 +265,8 @@
                                             <a href="{% url 'prodview' tshirt.id %}">  <img src="{{tshirt.imageURL}}" alt="" /></a>
                                             <h2>${{tshirt.price}}</h2>
                                             <p>{{tshirt.name}}</p>
-                                            <a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <button  data-product={{tshirt.id}} data-action="add" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            <!-- <a href="" data-product={{tshirt.id}} data-action="add" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> -->
                                         </div>
                                         
                                     </div>
@@ -283,7 +284,8 @@
                                             <a href="{% url 'prodview' pant.id %}"> <img src="{{pant.imageURL}}" alt="" /></a>
                                             <h2>${{pant.price}}</h2>
                                             <p>{{pant.name}}</p>
-                                            <a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <button  data-product={{pant.id}} data-action="add" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                           
                                         </div>
                                         
                                     </div>
@@ -302,7 +304,8 @@
                                             <a href="{% url 'prodview' glass.id %}">  <img src="{{glass.imageURL}}" alt="" /></a>
                                             <h2>${{glass.price}}</h2>
                                             <p>{{glass.name}}</p>
-                                            <a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <button  data-product={{glass.id}} data-action="add" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            
                                         </div>
                                         
                                     </div>

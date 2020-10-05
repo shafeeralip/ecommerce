@@ -77,7 +77,13 @@
                             <div class="form-group">
                                 <div class="col-md-12"><strong>Country:</strong></div>
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" name="country" value="" />
+                                    <select class="form-control" name="">
+                                        <option value="">Country</option>
+                                        {% for country in cont %}
+                                        <option value="">{{country}}</option>
+                                        {%endfor%}
+                                        
+                                </select>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -54,7 +54,7 @@
 								<p class="cart_total_price">${{item.get_total}}</p>
 							</td>
 							<td class="cart_delete">
-								<a  data-product={{item.product.id}} onclick="window.mycart()" id="checking" data-action="delete" class="cart_quantity_delete update-cart" href=" "><i class="fa fa-times"></i></a>
+								<a  data-product={{item.product.id}} data-name="{{item.product.name}}" onclick="window.mycart()" id="checking" data-action="delete" class="cart_quantity_delete update-cart" href=" "><i class="fa fa-times"></i></a>
 							</td>
 						</div>
 						</tr>
@@ -80,15 +80,19 @@
 	</section> 
 	<script>
 		window.mycart=function(){
-		var isValid =confirm("are you sure do you want delete ?");
+			var v= document.getElementById("checking")
+			var productname = v.dataset.name
+			console.log("id:",productname)
+		
+		var isValid =confirm("\t \tAre you sure !\n\n Do you want delete "+productname +" ?");
 		if(!isValid){
-			event.preventDefault();
-			document.getElementById('checking').datasSet.remove('delete')
-
 			
-
+			event.preventDefault();
+			document.getElementById("checking").removeAttribute("data-action"); 
+			// document.getElementById('checking').dataSet.remove('delete')
 			alert("it wont be delete");
 		}
+	 	location.reload()
 	}
 	</script>
 {% endblock %}

@@ -56,7 +56,7 @@
 						<td>
 						
 							<a href="{% url 'update' product.id %}" class="edit" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="{% url 'delete' product.id %}" onclick="window.mytest()" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="{% url 'delete' product.id %}" onclick="window.mytest()" class="delete" id="delcheck" data-id="{{product.id}}"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>
 					{% endfor %}
@@ -298,7 +298,9 @@
 <script>
 	
 	window.mytest=function(){
-		var isValid =confirm("are you sure do you want delete ?");
+		var v= document.getElementById("delcheck")
+		var productid = v.dataset.id
+		var isValid =confirm("are you sure do you want delete id="+productid +" ?");
 		if(!isValid){
 			event.preventDefault();
 			alert("it wont be delete");

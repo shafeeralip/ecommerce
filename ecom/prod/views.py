@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login,logout
 import json
 import requests
 import razorpay
+from datetime import *
 # Create your views here.
 
 def home(request):
@@ -38,18 +39,27 @@ def orders(request):
     customer=request.user.customer
     orders =Order.objects.filter(customer=customer,complete=True)
     items=[]
-    for order in orders:
-        orderitems=OrderItem.objects.filter(order=order)
-        for orderitem in orderitems:
-            items.append(orderitem)
+    try:
+        for order in orders:
+            orderitems=OrderItem.objects.filter(order=order)
+            for orderitem in orderitems:
+                items.append(orderitem)
+            order=order
 
-    print("items:",items)
+        date=order.date_orderd.date
+        print('hi',date)
+
+        print("items:",items)
+    except:
+        order=0
     
     return render(request,'userorder.html',{'order':order,'items':items})
 
 def userlogin(request):
+    if request.user.is_authenticated:
+        return redirect(home)
 
-    if request.method =='POST':
+    elif request.method =='POST':
         username=request.POST['username']
         password=request.POST['password']
         user=authenticate(username=username,password=password)
@@ -89,7 +99,9 @@ def userlogin(request):
 
     
 def register(request):
-    if request.method=='POST':
+    if request.user.is_authenticated:
+        return redirect(home)
+    elif request.method=='POST':
         username=request.POST['username']
         email=request.POST['email']
         password=request.POST['password']
@@ -107,46 +119,39 @@ def register(request):
 
         else:
             
+            request.session['username'] =  username
+            request.session['password'] = password
+            request.session['email']=email
+            request.session['number']=number
 
-            user=User.objects.create_user(username=username,email=email,password=password,last_name=number,first_name=password)
-            user.save();
-            number=request.POST['number']
-            user=User.objects.get(last_name=number)
-            print(user)
-       
-            if user:
-                username = user.username
-                password=user.first_name
-                request.session['username'] =  username
-                request.session['password'] = password
-                
-
-                url = "https://d7networks.com/api/verifier/send"
-                number=str(91) + number
-                
-                payload = {'mobile': number,
-                'sender_id': 'SMSINFO',
-                'message': 'Your otp code is {code}',
-                'expiry': '900'}
-                files = [
-
-                ]
-                headers = {
-                'Authorization': 'Token ae88b588f853eccd3e1b1c8befd530c5d68c47ea'
-                }
-
-                response = requests.request("POST", url, headers=headers, data = payload, files = files)
-
-                print(response.text.encode('utf8'))
-                data=response.text.encode('utf8')
-                datadict=json.loads(data.decode('utf-8'))
-
-                id=datadict['otp_id']
-                status=datadict['status']
-                print('id:',id)
-                request.session['id'] = id
             
-                return render(request,'otp.html')
+
+            url = "https://d7networks.com/api/verifier/send"
+            number=str(91) + number
+            
+            payload = {'mobile': number,
+            'sender_id': 'SMSINFO',
+            'message': 'Your otp code is {code}',
+            'expiry': '900'}
+            files = [
+
+            ]
+            headers = {
+            'Authorization': 'Token ae88b588f853eccd3e1b1c8befd530c5d68c47ea'
+            }
+
+            response = requests.request("POST", url, headers=headers, data = payload, files = files)
+
+            print(response.text.encode('utf8'))
+            data=response.text.encode('utf8')
+            datadict=json.loads(data.decode('utf-8'))
+
+            id=datadict['otp_id']
+            status=datadict['status']
+            print('id:',id)
+            request.session['id'] = id
+        
+            return render(request,'otp.html')
 
             
     return render(request,'login.html')
@@ -174,7 +179,27 @@ def view(request,id):
 
 def checkout(request):
 
-   
+    url = "https://restcountries-v1.p.rapidapi.com/all"
+    headers = {
+    'x-rapidapi-host': "restcountries-v1.p.rapidapi.com",
+    'x-rapidapi-key': "a1adc67eb8msh45ba3862e81291ap103047jsn91937edcd3b3"
+    }
+
+    response = requests.request("GET", url, headers=headers)
+
+    
+    country=json.loads(response.text)
+    cont=[]
+    for c in country:
+
+        con= c['name']
+        cont.append(con)
+         
+        
+
+    # for country in country:
+        
+    
 
    
     client=razorpay.Client(auth=("rzp_test_7i01eG7knm1628","K9H5VQX0OHOsFwPMDY8DCMzp"))
@@ -209,7 +234,7 @@ def checkout(request):
     order_id=response['id']
     
      
-    context = {'items':items,'order':order,'cartItems':cartItems,'order_id':order_id}
+    context = {'items':items,'order':order,'cartItems':cartItems,'order_id':order_id,'cont':cont}
     
     return render(request,'checkout.html',context)
     
@@ -294,13 +319,25 @@ def otp(request):
         status=datadict['status']
         
         if status=='success':
+            
             username = request.session['username']   
             password =  request.session['password']
-            per=authenticate(username=username,password=password)
+            if User.objects.filter(username=username).exists():
+                user=authenticate(username=username,password=password)
 
-            login(request,per)
+               
+            else:
+                email=request.session['email']
+                number=request.session['number']
+                user=User.objects.create_user(username=username,email=email,password=password,last_name=number,first_name=password)
+                user.save();
+
+            login(request,user)
 
             return redirect(home)
+
+
+                
 
         
         else:
