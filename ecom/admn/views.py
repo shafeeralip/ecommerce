@@ -6,7 +6,8 @@ from django.contrib.auth import authenticate, login,logout
 from django.views.decorators.cache import cache_control
 from django.core.files.storage import FileSystemStorage
 from datetime import *
-
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
 
@@ -32,7 +33,7 @@ def admn(request):
   else:
     return render(request,'admnlog.html')
           
-@login_required(login_url='/admin')
+@user_passes_test(lambda u: u.is_superuser,login_url='/admin')
 def home(request):
 
   year = datetime.now().year
@@ -78,14 +79,12 @@ def home(request):
 
   
 
-  
-
   return render(request,'dashbord.html',{'values':values,'total_income':total_income,'today_order':today_order,'today_income':today_income,'customer':customer})
 
   
         
    
-@login_required(login_url='/')    
+@user_passes_test(lambda u: u.is_superuser,login_url='/')    
 def productadd(request):
   pd=Product.objects.all()
   if request.method =='POST':
@@ -115,14 +114,14 @@ def log(request):
  
 
 
-@login_required(login_url='/')
+@user_passes_test(lambda u: u.is_superuser,login_url='/')
 def delete(request,id):
      
      product=Product.objects.get(id=id)
      product.delete()
      return redirect('home')
 
-@login_required(login_url='/')
+@user_passes_test(lambda u: u.is_superuser,login_url='/')
 def update(request,id):
   product=Product.objects.get(id=id)
   if request.method=='POST':
@@ -151,12 +150,12 @@ def update(request,id):
     return render(request,'update.html',{'product':product})  
 
 
-@login_required(login_url='/')
+@user_passes_test(lambda u: u.is_superuser,login_url='/')
 def adproduct(request):
   prod=Product.objects.all()
   return render(request,'adproduct.html',{'product':prod})
 
-@login_required(login_url='/')
+@user_passes_test(lambda u: u.is_superuser,login_url='/')
 def order(request):
   order=Order.objects.all()
    
@@ -164,7 +163,7 @@ def order(request):
  
  
 
-@login_required(login_url='/') 
+@user_passes_test(lambda u: u.is_superuser,login_url='/') 
 def approve(request,id):
 
   if request.method=='POST':
@@ -191,8 +190,7 @@ def approve(request,id):
   
   
 
-
-@login_required(login_url='/') 
+@user_passes_test(lambda u: u.is_superuser,login_url='/')
 def customer(request):
   
   customer=Customer.objects.all()
@@ -204,10 +202,7 @@ def customer(request):
   
   print("itms:",item)
     
-  context={
-    'customer':customer,
-    'item':item
-  }
+
   values=zip(customer,item)
  
   return render(request,'adcustomer.html',{'value':values})

@@ -36,6 +36,8 @@ def home(request):
     return render(request,'index.html',{'product': product,'tshirt':tshirt,'pant':pant,'glass':glass,'cartItems':cartItems})
 
 def orders(request):
+    data = cartData(request)
+    cartItems=data['cartItems']
     customer=request.user.customer
     orders =Order.objects.filter(customer=customer,complete=True)
     items=[]
@@ -44,16 +46,16 @@ def orders(request):
             orderitems=OrderItem.objects.filter(order=order)
             for orderitem in orderitems:
                 items.append(orderitem)
-            order=order
+            
 
-        date=order.date_orderd.date
-        print('hi',date)
-
-        print("items:",items)
+        
     except:
         order=0
+        items=0
     
-    return render(request,'userorder.html',{'order':order,'items':items})
+    zipitems=zip(items,orders)
+    
+    return render(request,'userorder.html',{'zipitems':zipitems,'cartItems':cartItems})
 
 def userlogin(request):
     if request.user.is_authenticated:
