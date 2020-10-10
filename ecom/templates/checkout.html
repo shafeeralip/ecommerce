@@ -242,6 +242,7 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         var total ='{{order.get_cart_total}}'
+        var payment_status='razorpay'
         var options = {
             "key": "rzp_test_7i01eG7knm1628", // Enter the Key ID generated from the Dashboard
             "amount": total, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -252,7 +253,7 @@
             "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
             "handler": function (response){
                
-                submitFormData()
+                submitFormData(payment_status)
             },
             "prefill": {
                 "name": "Gaurav Kumar",
@@ -275,6 +276,7 @@
     <script src="https://www.paypal.com/sdk/js?client-id=AYtodiSdVNbDP1Kn-G9ScgW79r5dczXhaDzz5gT8a1Jm-TB4tn9a5soO5rcNP7Q104W5s8iJoE7Es7ot&currency=USD&disable-funding=card"></script>
     <script>
         var total ='{{order.get_cart_total}}'
+        var payment_status='paypal'
         // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
             
@@ -293,7 +295,7 @@
             // Finalize the transaction
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
-                    submitFormData()
+                    submitFormData(payment_status)
                 });
             }
 
@@ -321,8 +323,8 @@
         })
         
 
-        function submitFormData(){
-            console.log('payment clicked')
+        function submitFormData(payment_status){
+            console.log('payment clicked',total)
 
             var userFormData = {
                 'name':null,
@@ -334,12 +336,15 @@
                 'city':null,
                 'state':null,
                 'zipcode':null,
+                'payment_status':null
             }
             if(shipping!='False'){
                 shippingInfo.address=form.address.value
                 shippingInfo.city=form.city.value
                 shippingInfo.state=form.state.value
                 shippingInfo.zipcode=form.zipcode.value
+                shippingInfo.payment_status=payment_status
+
             }
             if(user=='AnonymousUser'){
                 userFormData.name=form.name.value

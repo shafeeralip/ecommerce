@@ -6,16 +6,24 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container">
     <div class="row">
-        <form class="form-horizontal" action="{% url 'update' product.id %}" method="POST">
+        <form runat="server" class="form-horizontal" action="{% url 'update' product.id %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
+            <div style="float: right;">
+                <div class="controls">
+                    <img id="blah" style="width: 21rem;
+                    padding-top: 18%;" src="{{product.imageURL}}" alt="">
+                </div>
+            </div>
             <fieldset>
-
+            <div class="">
+               
                 <!-- Form Name -->
-                <legend>:::Product Details</legend>
+                <legend>:::Product Details</lgeend>
                
                 <!-- Text input-->
                 <div class="control-group">
@@ -60,6 +68,7 @@
                         <p class="help-block"></p>
                     </div>
                 </div>
+                
                 <div class="control-group">
                     <label class="control-label">Product Attribute</label>
                     <div class="controls">
@@ -82,7 +91,7 @@
                     <label class="control-label" for="photo">Product Photo</label>
                     <div class="controls">
                         <label for="">Current Img: <a href="">{{product.image}}</a></label>
-                        <input id="photo" name="image" class="input-file" type="file" >
+                        <input id="imgInp" name="img" class="input-file" type="file" value="{{product.image}}">
                         
                 </div>
               
@@ -96,11 +105,30 @@
                     </div>
                     
                 </div>
-
-
+                
+                
             </div>
+           
+           
         </fieldset>
     </form>
   
+   </div>
 </div>
-</div>
+<script>
+    function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function(e) {
+      $('#blah').attr('src', e.target.result);
+    }
+    
+    reader.readAsDataURL(input.files[0]); // convert to base64 string
+  }
+}
+
+$("#imgInp").change(function() {
+  readURL(this);
+});
+</script>

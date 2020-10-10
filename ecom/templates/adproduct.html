@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<div class="container-xl">
+<div class="">
 	<div class="table-responsive">
 		<div class="table-wrapper">
 			<div class="table-title">
@@ -48,7 +48,8 @@
 						<td>
 							{{product.id}}
 						</td>
-						<td>{{product.name}}</td>
+						<td><img src="{{product.imageURL}}" style="width: 35px" alt="">
+							{{product.name}}</td>
 						<td>{{product.product_type}}</td>
 						<td>{{product.product_quantity}}</td>
 						<td>${{product.price}}</td> 

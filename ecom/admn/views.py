@@ -20,7 +20,7 @@ def admn(request):
     password=request.POST['password']
     user=authenticate(username=username,password=password)
     if user:
-        if username =='shafee' and password =='123':
+        if username =='shafeer' and password =='123':
           login(request,user)
          
           return redirect(home)
@@ -43,7 +43,7 @@ def home(request):
 
   
   values = []
-  for i in range(0,12):
+  for i in range(0,11):
     chart_order = Order.objects.filter(date_orderd__year = year,date_orderd__month = i)
     order_total = 0
     for items in chart_order:
@@ -77,9 +77,18 @@ def home(request):
 
   customer=Customer.objects.all()
 
+  payment=[]
+
+  paypal=ShippingAdress.objects.filter(payment_status='paypal')
+  paypal_value=paypal.count()
+
   
 
-  return render(request,'dashbord.html',{'values':values,'total_income':total_income,'today_order':today_order,'today_income':today_income,'customer':customer})
+  razor=ShippingAdress.objects.filter(payment_status='razorpay')
+  razor_value=razor.count()
+  payment.append(razor_value)
+  payment.append(paypal_value)
+  return render(request,'dashbord.html',{'values':values,'total_income':total_income,'today_order':today_order,'today_income':today_income,'customer':customer,'payment':payment})
 
   
         
@@ -95,7 +104,7 @@ def productadd(request):
     attribute =request.POST['attribute']
     price=request.POST['price']
     
-    image=request.FILES.get('myfile')
+    image=request.FILES.get('image')
     prod=Product(image=image,name=name,product_type=product_type,product_category=product_category,product_quantity=product_quantity,attribute=attribute , price= price)
     prod.save();
       
@@ -119,7 +128,7 @@ def delete(request,id):
      
      product=Product.objects.get(id=id)
      product.delete()
-     return redirect('home')
+     return redirect('/admin/adproduct')
 
 @user_passes_test(lambda u: u.is_superuser,login_url='/')
 def update(request,id):
@@ -137,8 +146,8 @@ def update(request,id):
     product.product_quantity=product_quantity
     product.attribute=attribute
     product.price=price
-    if 'image' not in request.POST:
-      image=request.POST['image']
+    if 'img' not in request.POST:
+      image=request.FILES.get('img')
     else:
       image=product.image
        
@@ -163,31 +172,8 @@ def order(request):
  
  
 
-@user_passes_test(lambda u: u.is_superuser,login_url='/') 
-def approve(request,id):
-
-  if request.method=='POST':
-
-    order=Order.objects.get(id=id)
-    order.value=request.POST['status']
-    print("hi",order.value)
-
-    order.save();
-    return redirect('order')
-    
-  order=Order.objects.all()
-  return render(request,'adorder.html',{'order':order})
 
 
-
-
-  # if order.approve==False:
-  #   order.approve=True
-   
-  # elif order.approve==True:
-  #   order.approve=False
-  
-  
   
 
 @user_passes_test(lambda u: u.is_superuser,login_url='/')
@@ -207,18 +193,56 @@ def customer(request):
  
   return render(request,'adcustomer.html',{'value':values})
 
-@login_required(login_url='/')   
+@user_passes_test(lambda u: u.is_superuser,login_url='/')
 def customerdel(request,id):
   customer=Customer.objects.get(id=id)
   customer.delete()
   return redirect('/admin/customer')
 
-@login_required(login_url='/') 
+@user_passes_test(lambda u: u.is_superuser,login_url='/')
 def user(request):
-  user=User.objects.all()
+  user=User.objects.filter(is_superuser=False)
   return render(request,'aduser.html',{'user':user})
 
+@user_passes_test(lambda u: u.is_superuser,login_url='/')
+def userBlock(request,id):
+  user=User.objects.get(id=id)
+  if user.is_active == False:
 
+    user.is_active = True
+  else:
+    
+    user.is_active = False
+   
+  user.save()
+  return redirect('user')
+
+
+@user_passes_test(lambda u: u.is_superuser,login_url='/')
+def userDelete(request,id):
+  user=User.objects.get(id=id)
+  user.delete()
+  return redirect('user')
+
+@user_passes_test(lambda u: u.is_superuser,login_url='/')
+def userUpdate(request,id):
+  user=User.objects.get(id=id)
+  if request.method=='POST':
+    user.last_name=request.POST['number']
+    user.email=request.POST['email']
+    user.save()
+    return redirect('user')
+
+  return render(request,'userupdate.html',{'user':user})
+
+
+
+@user_passes_test(lambda u: u.is_superuser,login_url='/')
+def checking(request,id,value):
+  order = Order.objects.get(id=id)
+  order.value=value
+  order.save()
+  return redirect('order')
 
 
   

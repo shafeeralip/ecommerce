@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<div class="container-xl">
+<div class="">
 	<div class="table-responsive">
 		<div class="table-wrapper">
 			<div class="table-title">
@@ -41,7 +41,9 @@
                         <th>email</th>
                         <th>Mobail number</th>
                         <th>date_joined</th>
-                        <th>last_login</th>
+						<th>last_login</th>
+						
+						<th>status</th>
 						
 					</tr>
 				</thead>
@@ -55,8 +57,19 @@
 						
                         <td>{{user.email}}</td>	
                         <td>{{user.last_name}}</td>	
-                        <td>{{user.date_joined}}</td>	
-                        <td>{{user.last_login}}</td>		
+                        <td>{{user.date_joined.date}}</td>	
+						<td>{{user.last_login}}</td>
+						{% if user.is_active == True %}
+						<td>Active</td>	
+						{%else%}
+						<td>Blocked</td>
+						{%endif%}	
+						<td>
+							<a href="{%url 'userupdate' user.id%}" class="edit" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<a href="{%url 'userblock' user.id%}"  onclick="window.mytest()" data-id="{{user.username}}"  id="blockcheck" data-id="" class="delete"><i class="fa fa-ban" aria-hidden="true"></i></a>
+							<a href="{%url 'userdelete' user.id%}" onclick="window.mydelete()" data-id="{{user.username}}"  id="delcheck" data-id="" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							
+						</td>	
 				
 					</tr>
 				{%endfor%}
@@ -300,6 +313,16 @@
 <script>
 	
 	window.mytest=function(){
+		var v= document.getElementById("blockcheck")
+		var productid = v.dataset.id
+		var isValid =confirm("are you sure do you want block "+productid+" ?");
+		if(!isValid){
+			event.preventDefault();
+			alert("it wont be block");
+		}
+	}
+	window.mydelete=function(){
+		
 		var isValid =confirm("are you sure do you want delete ?");
 		if(!isValid){
 			event.preventDefault();

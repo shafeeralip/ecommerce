@@ -6,11 +6,12 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 
 </head>
 <body>
-<div class="container-xl">
+<div class="">
 	<div class="table-responsive">
 		<div class="table-wrapper">
 			<div class="table-title">
@@ -45,8 +46,8 @@
 				<tbody>
 				  {% for order in order%}
 				  {% if order.complete == True %} 
-				  <form action="{% url 'approve' order.id %}" method="POST">
-					{%csrf_token%}
+				  
+					
 					<tr>
 						<td>
 							{{order.id}}
@@ -55,22 +56,48 @@
 						<td>{{order.customer}}</td>
 						<td>{{order.get_cart_total}}</td>
 						<td>
-						<select id="course" name="status"  required>
-							<option>{{order.value}}</option>  
-							<option>pending</option>
-							<option>shipped</option>
-							<option>out for delivery</option>
-							<option>completed</option>
-						</select>
+							<div class="btn-group">
+								<button type="button" class="btn btn-light">{{order.value}}</button>
+								<button type="button" class="btn btn-light dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
+								  aria-expanded="false">
+								  <span class="sr-only">Toggle Dropdown</span>
+								</button>
+								<div class="dropdown-menu">
+								   {% if order.value == 'pending' %}
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='shipped' %}">shipped</a>
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='out for delivery' %}">out for delivery</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='completed' %}">completed</a>
+									{%endif%}
+								  	{%if order.value == 'shipped' %}
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='pending' %}">pending</a>
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='out for delivery' %}">out for delivery</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='completed' %}">completed</a>
+									{%endif%}
+								  	{%if order.value == 'out for delivery' %}
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='pending' %}">pending</a>
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='out for delivery' %}">shipped</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='completed' %}">completed</a>
+									{%endif%}
+								  {%if order.value == 'completed' %}
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='pending' %}">pending</a>
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='out for delivery' %}">shipped</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="{% url 'checking' id=order.id value='completed' %}">out for delivery</a>
+								  {%endif%}
+								</div>
+							  </div>
 
 					</td>
 							<td>
-								<button type="submit" style="color: white;" class="btn btn-info">Update</button>
-								<!-- <a href="{% url 'approve' order.id %}" style="color: white;" class="btn btn-info" >Update</a> -->
+								
+								
 							</td>
 					
 						
-						</form>
+						
 				
 						
 						{%endif%}
@@ -347,6 +374,9 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
 </html> 
 

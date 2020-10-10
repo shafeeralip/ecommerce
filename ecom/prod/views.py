@@ -180,65 +180,69 @@ def view(request,id):
 
 
 def checkout(request):
+    try:
+        url = "https://restcountries-v1.p.rapidapi.com/all"
+        headers = {
+        'x-rapidapi-host': "restcountries-v1.p.rapidapi.com",
+        'x-rapidapi-key': "a1adc67eb8msh45ba3862e81291ap103047jsn91937edcd3b3"
+        }
 
-    url = "https://restcountries-v1.p.rapidapi.com/all"
-    headers = {
-    'x-rapidapi-host': "restcountries-v1.p.rapidapi.com",
-    'x-rapidapi-key': "a1adc67eb8msh45ba3862e81291ap103047jsn91937edcd3b3"
-    }
+        response = requests.request("GET", url, headers=headers)
 
-    response = requests.request("GET", url, headers=headers)
+        
+        country=json.loads(response.text)
+        cont=[]
+        for c in country:
 
-    
-    country=json.loads(response.text)
-    cont=[]
-    for c in country:
+            con= c['name']
+            cont.append(con)
+            
+            
 
-        con= c['name']
-        cont.append(con)
-         
+        # for country in country:
+            
         
 
-    # for country in country:
-        
     
+        client=razorpay.Client(auth=("rzp_test_7i01eG7knm1628","K9H5VQX0OHOsFwPMDY8DCMzp"))
+        data = cartData(request)
+        cartItems=data['cartItems']
+        order=data['order']
+        items=data['items']
+        order_currency='USD'
+        order_receipt = 'order-rctid-11'
 
-   
-    client=razorpay.Client(auth=("rzp_test_7i01eG7knm1628","K9H5VQX0OHOsFwPMDY8DCMzp"))
-    data = cartData(request)
-    cartItems=data['cartItems']
-    order=data['order']
-    items=data['items']
-    order_currency='USD'
-    order_receipt = 'order-rctid-11'
-
-    if request.user.is_authenticated:
+        if request.user.is_authenticated:
+            
+            order_amount=order.get_cart_total
+            order_amount *= 100
         
-        order_amount=order.get_cart_total
-        order_amount *= 100
-       
-    else:
-       
-        order_amount=order['get_cart_total']
-        order_amount *= 100
+        else:
         
-       
+            order_amount=order['get_cart_total']
+            order_amount *= 100
+            
+        
 
 
-    response = client.order.create(dict(
-        amount=order_amount,
-        currency=order_currency,
-        receipt=order_receipt,
-        payment_capture='0'
+        response = client.order.create(dict(
+            amount=order_amount,
+            currency=order_currency,
+            receipt=order_receipt,
+            payment_capture='0'
+            
+            ))
         
-        ))
+        order_id=response['id']
+        context = {'items':items,'order':order,'cartItems':cartItems,'order_id':order_id,'cont':cont}
+        return render(request,'checkout.html',context)
+        
+    except:
+        pass
+
+    return render(request,'checkout.html')
     
-    order_id=response['id']
     
-     
-    context = {'items':items,'order':order,'cartItems':cartItems,'order_id':order_id,'cont':cont}
-    
-    return render(request,'checkout.html',context)
     
 
 
