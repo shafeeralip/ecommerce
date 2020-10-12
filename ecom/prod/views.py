@@ -163,9 +163,6 @@ def userlogout(request):
     logout(request)
     return redirect(home)
 
-    # response =redirect(home)
-    # response.delete_cookie('user')
-    # return response
     
 
 def view(request,id):
@@ -197,13 +194,6 @@ def checkout(request):
             con= c['name']
             cont.append(con)
             
-            
-
-        # for country in country:
-            
-        
-
-    
         client=razorpay.Client(auth=("rzp_test_7i01eG7knm1628","K9H5VQX0OHOsFwPMDY8DCMzp"))
         data = cartData(request)
         cartItems=data['cartItems']
@@ -350,8 +340,45 @@ def otp(request):
             messages.info(request,'incorrectotp')
             return render(request,'otp.html')
 
-
-
-        
-
     return render(request,'otp.html')
+
+
+def shirt(request):
+    data = cartData(request)
+
+    cartItems=data['cartItems']
+    product= Product.objects.filter(product_type='shirt')
+
+    return render(request,'shirt.html',{"product":product,'cartItems':cartItems})
+
+
+def pant(request):
+    data = cartData(request)
+
+    cartItems=data['cartItems']
+    product= Product.objects.filter(product_type='pant')
+
+    return render(request,'pant.html',{"product":product,'cartItems':cartItems})
+
+
+def shoe(request):
+    data = cartData(request)
+
+    cartItems=data['cartItems']
+    product= Product.objects.filter(product_type='shoe')
+
+    return render(request,'shoe.html',{"product":product,'cartItems':cartItems})
+
+
+def watch(request):
+    data = cartData(request)
+
+    cartItems=data['cartItems']
+    product= Product.objects.filter(product_type='watch')
+
+
+    return render(request,'watch.html',{"product":product,'cartItems':cartItems})
+
+
+def about(request):
+    return render(request,'about.html')

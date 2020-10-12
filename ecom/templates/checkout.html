@@ -276,7 +276,7 @@
     <script src="https://www.paypal.com/sdk/js?client-id=AYtodiSdVNbDP1Kn-G9ScgW79r5dczXhaDzz5gT8a1Jm-TB4tn9a5soO5rcNP7Q104W5s8iJoE7Es7ot&currency=USD&disable-funding=card"></script>
     <script>
         var total ='{{order.get_cart_total}}'
-        var payment_status='paypal'
+        var payment='paypal'
         // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
             
@@ -295,7 +295,7 @@
             // Finalize the transaction
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
-                    submitFormData(payment_status)
+                    submitFormData(payment)
                 });
             }
 

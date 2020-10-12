@@ -154,17 +154,14 @@
 								<li><a href="/" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Acessories<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">shoe</a></li>
-										<li><a href="product-details.html">watch</a></li> 
-										<li><a href="checkout.html">sunglass</a></li> 
-										<!-- <li><a href="cart.html">Cart</a></li>  -->
-										<!-- <li><a href="login.html">Login</a></li>  -->
+                                        <li><a href="{% url 'shoe' %}">shoe</a></li>
+										<li><a href="{% url 'watch' %}">watch</a></li> 
                                     </ul>
                                 </li> 
 								<li class="dropdown"><a href="#">Apparel<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Shirts</a></li>
-										<li><a href="blog-single.html">Pants</a></li>
+                                        <li><a href="{% url 'shirt' %}">Shirts</a></li>
+										<li><a href="{% url 'pant' %}">Pants</a></li>
                                     </ul>
                                 </li> 
 								
@@ -208,11 +205,10 @@
 						<div class="single-widget">
 							<h2>Service</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Online Help</a></li>
-								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">Order Status</a></li>
-								<!-- <li><a href="#">Change Location</a></li> -->
-								<!-- <li><a href="#">FAQ’s</a></li> -->
+								<li><a href="{%url 'about' %}">Online Help</a></li>
+								<li><a href="{%url 'about' %}">Contact Us</a></li>
+								<li><a href="{%url 'about' %}">Order Status</a></li>
+								
 							</ul>
 						</div>
 					</div>
@@ -221,11 +217,11 @@
 						<div class="single-widget">
 							<h2>About Shopper</h2>
 							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Company Information</a></li>
-								<!-- <li><a href="#">Careers</a></li> -->
-								<li><a href="#">Store Location</a></li>
-								<!-- <li><a href="#">Affillate Program</a></li> -->
-								<li><a href="#">Copyright</a></li>
+								<li><a href="{%url 'about' %}">Company Information</a></li>
+								
+								<li><a href="{%url 'about' %}">Store Location</a></li>
+								
+								<li><a href="{%url 'about' %}">Copyright</a></li>
 							</ul>
 						</div>
 					</div>

@@ -8,6 +8,12 @@ from django.core.files.storage import FileSystemStorage
 from datetime import *
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
+import base64
+from PIL import Image
+from base64 import decodestring
+import binascii
+from django.core.files import File
+from django.core.files.base import ContentFile
 
 # Create your views here.
 
@@ -86,6 +92,7 @@ def home(request):
 
   razor=ShippingAdress.objects.filter(payment_status='razorpay')
   razor_value=razor.count()
+  print("razor",razor.count())
   payment.append(razor_value)
   payment.append(paypal_value)
   return render(request,'dashbord.html',{'values':values,'total_income':total_income,'today_order':today_order,'today_income':today_income,'customer':customer,'payment':payment})
@@ -104,8 +111,13 @@ def productadd(request):
     attribute =request.POST['attribute']
     price=request.POST['price']
     
-    image=request.FILES.get('image')
-    prod=Product(image=image,name=name,product_type=product_type,product_category=product_category,product_quantity=product_quantity,attribute=attribute , price= price)
+    image_data =request.POST['image64data']
+    format, imgstr = image_data.split(';base64,')
+    ext = format.split('/')[-1]
+
+    data = ContentFile(base64.b64decode(imgstr),name='temp.' + ext)
+
+    prod=Product(image=data,name=name,product_type=product_type,product_category=product_category,product_quantity=product_quantity,attribute=attribute , price= price)
     prod.save();
       
     return redirect('/admin/adproduct')
