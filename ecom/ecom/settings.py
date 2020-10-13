@@ -24,9 +24,9 @@ TEMPLATE_DIR =os.path.join(BASE_DIR,'templates')
 SECRET_KEY = '9e0l*!z4q+!%uky2kqq%#ppdr5jbvphevq+)4r(w!sub%p#3ui'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -86,11 +86,12 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ecom',
-        'USER':'postgres',
-        'PASSWORD':'postgres',
-        'HOST':'localhost',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME':BASE_DIR / 'db.sqlite3',
+        # 'NAME': 'ecom',
+        # 'USER':'postgres',
+        # 'PASSWORD':'postgres',
+        # 'HOST':'localhost',
     }
 }
 
