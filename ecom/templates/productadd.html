@@ -109,7 +109,7 @@
 <div class="control-group">
   <label class="control-label" >Quantity</label>
   <div class="controls">
-    <input  name="product_quantity" type="text" required>
+    <input  name="product_quantity" type="number" required>
     <p class="help-block"></p>
   </div>
 </div>
@@ -124,7 +124,7 @@
 <div class="control-group">
   <label class="control-label" >Price</label>
   <div class="controls">
-    <input id="" name="price" placeholder="price" class="input-xlarge" type="text" required>
+    <input id="" name="price" placeholder="price" class="input-xlarge" type="number" required>
     <p class="help-block"></p>
   </div>
 </div>
@@ -156,14 +156,14 @@
       <!-- input file -->
       <div class="box">
           <div class="options hide">
-              <label> Width</label>
-              <input type="number" name="myfile" class="img-w" value="300" min="100" max="1200" />
+              <!-- <label> Width</label> -->
+              <input type="hidden" name="myfile" class="img-w" value="300" min="100" max="1200" />
           </div>
           <!-- save btn -->
-          <button class="btn save hide">Confirm</button>
+          <button class="btn save hide" id="load">Confirm</button>
           <!-- download btn -->
           <a href="" id="" class="btn hidden"></a>
-          <button id="load" class="  btn btn primary" type="button" >Upload</button>
+          <!-- <button  class="  btn btn primary" type="button" >Upload</button> -->
       </div>
       <button type="submit" class="btn btn-info btn-lg" style="color: white; background-color: blue;" data-toggle="modal" data-target="#myModal">Save</button>
 

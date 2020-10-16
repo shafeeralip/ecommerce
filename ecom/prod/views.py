@@ -44,8 +44,12 @@ def orders(request):
     try:
         for order in orders:
             orderitems=OrderItem.objects.filter(order=order)
+            
             for orderitem in orderitems:
+               
                 items.append(orderitem)
+
+                
             
 
         
@@ -53,9 +57,10 @@ def orders(request):
         order=0
         items=0
     
-    zipitems=zip(items,orders)
+    print("hello",items)
+   
     
-    return render(request,'userorder.html',{'zipitems':zipitems,'cartItems':cartItems})
+    return render(request,'userorder.html',{'cartItems':cartItems,'items':items,})
 
 def userlogin(request):
     if request.user.is_authenticated:
