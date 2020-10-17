@@ -7,54 +7,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'admn/css/productadd.css' %}">
 <!------ Include the above in your HEAD tag ---------->
-<style>
-
-  .page {
-    margin: 1em auto;
-    max-width: 768px;
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    height: 100%;
-  }
-  
-  .box {
-    padding: 0.5em;
-    width: 100%;
-    margin:0.5em;
-  }
-  
-  .box-2 {
-    padding: 0.5em;
-    width: calc(100%/2 - 1em);
-  }
-  
-  .options label,
-  .options input{
-    width:4em;
-    padding:0.5em 1em;
-  }
-  .btn{
-    background:white;
-    color:black;
-    border:1px solid black;
-    padding: 0.5em 1em;
-    text-decoration:none;
-    margin:0.8em 0.3em;
-    display:inline-block;
-    cursor:pointer;
-  }
-  
-  .hide {
-    display: none;
-  }
-  
-  img {
-    max-width: 100%;
-  }
-  
-  </style>
 <div class="container">
 	<div class="row">
 	<form class="form-horizontal" action="{%url 'productadd' %}" method="POST" enctype="multipart/form-data">
