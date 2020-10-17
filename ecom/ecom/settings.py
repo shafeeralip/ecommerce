@@ -26,7 +26,7 @@ SECRET_KEY = '9e0l*!z4q+!%uky2kqq%#ppdr5jbvphevq+)4r(w!sub%p#3ui'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['eshopper.shafeerali.co']
 
 
 # Application definition
