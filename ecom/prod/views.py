@@ -30,10 +30,10 @@ def home(request):
     
     product= Product.objects.filter(product_type='shirt')
     tshirt= Product.objects.filter(product_type='t-shirt')
-    pant= Product.objects.filter(product_type='pant')
-    glass= Product.objects.filter(product_type='sunglass')
+    pant= Product.objects.filter(product_type='jeans')
+    shoe= Product.objects.filter(product_type='shoe')
  
-    return render(request,'index.html',{'product': product,'tshirt':tshirt,'pant':pant,'glass':glass,'cartItems':cartItems})
+    return render(request,'index.html',{'product': product,'tshirt':tshirt,'pant':pant,'shoe':shoe,'cartItems':cartItems})
 
 def orders(request):
     data = cartData(request)
@@ -361,7 +361,7 @@ def pant(request):
     data = cartData(request)
 
     cartItems=data['cartItems']
-    product= Product.objects.filter(product_type='pant')
+    product= Product.objects.filter(product_type='jeans')
 
     return render(request,'pant.html',{"product":product,'cartItems':cartItems})
 

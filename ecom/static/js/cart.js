@@ -40,7 +40,7 @@ function addCookieItem( productId , action ){
         delete cart[ productId ]
     }
     document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
-    location.reload()
+    // location.reload()
     console.log("cart:", cart)
 
 }
@@ -66,7 +66,7 @@ function updateUserOrder(productId,action){
 
     .then((data)=>{
        console.log('data:',data)
-       location.reload()
+    //    location.reload()
     })
 
 }
