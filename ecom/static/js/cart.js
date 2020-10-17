@@ -2,6 +2,13 @@
 
 for(var i=0;i < updateBtns.length;i++){
     updateBtns[i].addEventListener('click',function(){
+
+        console.log("clicked")
+        var v =document.getElementById('cart-total').textContent;
+        v++
+        document.getElementById('cart-total').innerHTML=v;
+        
+        console.log("value",v)
         var productId = this.dataset.product
         var action = this.dataset.action
         console.log('productid:',productId,'action:',action)
