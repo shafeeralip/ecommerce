@@ -11,9 +11,9 @@
 				  <li class="active">Shopping Cart</li>
 				</ol>
 				<ol class="breadcrumb">
-					<li><h3>Items: <strong>{{order.get_cart_items}}</strong></h3></li>
+					<li><h3>Items: <strong id="total-items">{{order.get_cart_items}}</strong></h3></li>
 					
-					<li style="float: right;"><h3>Total:<strong> ${{order.get_cart_total}}</strong></h3></li>
+					<li style="float: right;"><h3>Total:$<strong id="total-price"> {{order.get_cart_total}}</strong></h3></li>
 						
 				</ol>
 			</div>
@@ -33,6 +33,7 @@
 						{% for item in items %}
 						<tr>
 							<td class="cart_product">
+								
 								<a href=""><img src="{{item.product.imageURL}}" style="width: 35px" alt=""></a>
 							</td>
 							<td class="cart_description">
@@ -41,20 +42,33 @@
 							</td>
 							<div class="pt-5">
 							<td class="cart_price ">
-								<p>${{item.product.price}}</p>
+								<p >$<span id="prodprice{{item}}" >{{item.product.price}}</span></p>
 							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a data-product={{item.product.id}} data-action="add" class="cart_quantity_up update-cart" href=""> + </a>
-									<input  class="cart_quantity_input" type="" name="quantity" value="{{item.quantity}}" >
+							<td class=>
+								{% if user.is_authenticated %}
+								<button id="up" data-product={{item.product.id}}  data-action="add" onclick="window.myup('{{item}}')"  class="cart_quantity_up update-cart"  ><i class="fa fa-sort-asc"></i></button>
+									<input style="text-align:center;"  id="qu{{item}}" class="test" value="{{item.quantity}}" >
+									<button data-product={{item.product.id}} data-action="remove"  onclick="window.mydown('{{item}}')" class="cart_quantity_down update-cart" > <i class="fa fa-sort-desc"></i></button>
+								
+									{% else %}
+									<a data-product={{item.product.id}} data-action="add" class=" cart_quantity_up update-cart" href=""> + </a>
+									<input style="text-align:center;"  id="qu{{item}}" class="test" value="{{item.quantity}}" >
+
+									
 									<a data-product={{item.product.id}} data-action="remove" class="cart_quantity_down update-cart" href=""> - </a>
-								</div>
+								{%endif%}
+								
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">${{item.get_total}}</p>
+								<p class="cart_total_price">$<span id="totalprice{{item}}" class="cart_total_p">{{item.get_total}}</span></p>
 							</td>
 							<td class="cart_delete">
-								<a  data-product={{item.product.id}} data-name="{{item.product.name}}" onclick="window.mycart()" id="checking" data-action="delete" class="cart_quantity_delete update-cart" href=" "><i class="fa fa-times"></i></a>
+								{%if user.is_authenticated %}
+								<a  data-product={{item.product.id}} data-name="{{item.product.name}}" onclick="window.mycart('{{item}}')" id="checking-{{item}}" data-action="delete" class="cart_quantity_delete update-cart" href=" "><i class="fa fa-times"></i></a>
+								{% else %}
+								<a  data-product={{item.product.id}} data-name="{{item.product.name}}" onclick="window.mycart1()" id="checking" data-action="delete" class="cart_quantity_delete update-cart" href=" "><i class="fa fa-times"></i></a>
+								{%endif%}
+								
 							</td>
 						</div>
 						</tr>
@@ -79,12 +93,112 @@
 		</div>
 	</section> 
 	<script>
-		window.mycart=function(){
-			var v= document.getElementById("checking")
+		
+		
+		window.myup=function(item){
+			
+			var add = document.getElementById("qu"+item).value;
+			add++
+			var price=document.getElementById("prodprice"+item).textContent
+			// var totalprice=document.getElementById("totalprice"+item).textContent
+			pri=parseFloat(price,10)
+			value=pri * add
+			// alert("totsl"+pri +"*"+add+"="+value)
+
+
+			document.getElementById("qu"+item).value=add
+			document.getElementById("totalprice"+item).innerHTML=value;
+			var sumitem=0
+			
+
+			document.querySelectorAll('.test').forEach(ele=>{
+			console.log(ele.value);
+			
+			sumitem=sumitem + parseInt(ele.value) 
+			
+
+
+		})
+		
+		document.getElementById("total-items").innerHTML=sumitem
+		var sumtotal=0
+		document.querySelectorAll('.cart_total_p').forEach(ele=>{
+			console.log("total",ele.textContent)
+			sumtotal=sumtotal + parseFloat(ele.textContent) 
+			
+
+
+
+		})
+
+		document.getElementById("total-price").innerHTML=sumtotal
+		
+
+
+		}
+
+		window.mydown=function(item){
+			var add = document.getElementById("qu"+item).value;
+			if(add==1){
+				location.reload()
+			}
+           	else{
+			add--
+			var price=document.getElementById("prodprice"+item).textContent
+			pri=parseFloat(price,10)
+			value=pri * add
+			document.getElementById("qu"+item).value=add
+			document.getElementById("totalprice"+item).innerHTML=value;
+
+		   }
+		   var sumitem=0
+			
+
+			document.querySelectorAll('.test').forEach(ele=>{
+			console.log(ele.value);
+			
+			sumitem=sumitem + parseInt(ele.value) 
+			
+
+
+		})
+		
+			document.getElementById("total-items").innerHTML=sumitem
+			var sumtotal=0
+			document.querySelectorAll('.cart_total_p').forEach(ele=>{
+			console.log("total",ele.textContent)
+			sumtotal=sumtotal + parseFloat(ele.textContent) 
+			
+
+
+
+		})
+
+		document.getElementById("total-price").innerHTML=sumtotal
+
+			
+
+		}
+
+		window.mycart=function(item){
+			var v= document.getElementById("checking-"+item)
 			var productname = v.dataset.name
 			console.log("id:",productname)
 		
 		var isValid =confirm("\t \tAre you sure !\n\n Do you want delete "+productname +" ?");
+		if(!isValid){
+			
+			event.preventDefault();
+			document.getElementById("checking-"+item).removeAttribute("data-action"); 
+			// document.getElementById('checking').dataSet.remove('delete')
+			alert("it wont be delete");
+		}
+	 	location.reload()
+	}
+	window.mycart1=function(){
+			
+		
+		var isValid =confirm("\t \tAre you sure !\n\n Do you want delete  ?");
 		if(!isValid){
 			
 			event.preventDefault();

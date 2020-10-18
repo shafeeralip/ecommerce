@@ -58,7 +58,7 @@
 						<td>
 						
 							<a href="{% url 'update' product.id %}" class="edit" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="{% url 'delete' product.id %}" onclick="window.mytest()" class="delete" id="delcheck" data-id="{{product.id}}"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="{% url 'delete' product.id %}" onclick="window.mytest('{{product}}')" class="delete" id="delcheck{{product}}" data-id="{{product.id}}"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>
 					{% endfor %}
@@ -72,16 +72,16 @@
 
 <script>
 	
-	window.mytest=function(){
-		var v= document.getElementById("delcheck")
+	window.mytest=function(product){
+		var v= document.getElementById("delcheck"+product)
 		var productid = v.dataset.id
-		var isValid =confirm("are you sure do you want delete ?");
+		var isValid =confirm("are you sure do you want delete product id "+productid+" ?");
 		if(!isValid){
 			event.preventDefault();
 			alert("it wont be delete");
 
 		}
-		window.location.href="/admin/adproduct" 
+		
 	}
 	function myFunction() {
 	  var input, filter, table, tr, td, i, txtValue;

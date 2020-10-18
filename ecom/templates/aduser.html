@@ -66,8 +66,8 @@
 						{%endif%}	
 						<td>
 							<a href="{%url 'userupdate' user.id%}" class="edit" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="{%url 'userblock' user.id%}"  onclick="window.mytest()" data-id="{{user.username}}"  id="blockcheck" data-id="" class="delete"><i class="fa fa-ban" aria-hidden="true"></i></a>
-							<a href="{%url 'userdelete' user.id%}" onclick="window.mydelete()" data-id="{{user.username}}"  id="delcheck" data-id="" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a href="{%url 'userblock' user.id%}"  onclick="window.mytest('{{user}}')" data-id="{{user.username}}"  id="blockcheck{{user}}" data-id="" class="delete"><i class="fa fa-ban" aria-hidden="true"></i></a>
+							<a href="{%url 'userdelete' user.id%}" onclick="window.mydelete('{{user}}')" data-id="{{user.username}}"  id="delcheck{{user}}" data-id="" class="delete"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 							
 						</td>	
 				
@@ -86,18 +86,19 @@
 
 <script>
 	
-	window.mytest=function(){
-		var v= document.getElementById("blockcheck")
+	window.mytest=function(user){
+		var v= document.getElementById("blockcheck"+user)
 		var productid = v.dataset.id
-		var isValid =confirm("are you sure do you want block  ?");
+		var isValid =confirm("are you sure do you want block user  "+productid+ " ?");
 		if(!isValid){
 			event.preventDefault();
 			alert("it wont be block");
 		}
 	}
-	window.mydelete=function(){
-		
-		var isValid =confirm("are you sure do you want delete ?");
+	window.mydelete=function(user){
+		var v= document.getElementById("delcheck"+user)
+		var productid = v.dataset.id
+		var isValid =confirm("are you sure do you want delete user "+productid+" ?");
 		if(!isValid){
 			event.preventDefault();
 			alert("it wont be delete");

@@ -1,16 +1,57 @@
         var updateBtns =document.getElementsByClassName('update-cart')
+        
+
 
 for(var i=0;i < updateBtns.length;i++){
     updateBtns[i].addEventListener('click',function(){
 
         console.log("clicked")
-        var v =document.getElementById('cart-total').textContent;
-        v++
-        document.getElementById('cart-total').innerHTML=v;
-        
-        console.log("value",v)
+                tempAlert("item added to cart",1000);
+                
+                
+                var v =document.getElementById('cart-total').textContent;
+                v++
+                document.getElementById('cart-total').innerHTML=v;
+               
+               
+                    
+                console.log("value",v)
         var productId = this.dataset.product
         var action = this.dataset.action
+        // var quant =document.getElementById('qu')
+        // if(quant){
+        //     q=quant.value
+        //     console.log("quantity",q)
+        //     if(q==1){
+        //         location.reload()
+        //     }
+        //     if (action=='add')
+        //     {
+        //         q++
+        //         document.getElementById('qu').value=q
+
+        //     }
+        //     if (action=='remove')
+        //         {
+        //             q--
+        //             document.getElementById('qu').value=q
+
+        //         }
+            
+            // var totalprice=document.getElementById('totalprice').textContent;
+            // console.log("totalprice:",totalprice)
+            // var value=totalprice * q
+            // document.getElementById('totalprice').innerHTML=value
+
+            
+    
+
+        // }
+        // else{
+        //     q=0;
+        // }
+        
+    
         console.log('productid:',productId,'action:',action)
         console.log('User:',user)
         if(user == 'AnonymousUser'){
@@ -76,4 +117,14 @@ function updateUserOrder(productId,action){
     //    location.reload()
     })
 
+}
+function tempAlert(msg,duration)
+{
+ var el = document.createElement("div");
+ el.setAttribute("style","position:fixed;top:2%;left:50%;background-color:#FE980F;width:10%;height:4%;text-align:center;border-radius:5%;color:white;padding-top:3px;" );
+ el.innerHTML = msg;
+ setTimeout(function(){
+  el.parentNode.removeChild(el);
+ },duration);
+ document.body.appendChild(el);
 }
