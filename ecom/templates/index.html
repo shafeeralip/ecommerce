@@ -216,7 +216,7 @@
                                             <a href="{% url 'prodview' product.id %}"><img src="{{product.imageURL}} " alt="ss"></a>
                                                 <h2>${{product.price}}</h2>
                                                 <p>{{product.name}}</p>
-                                            <button data-product={{product.id}} data-action="add"  id="cartadd" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            <button data-product={{product.id}} data-action="add" onclick="window.popup()" id="cartadd" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                                 
                                             </div>	
                                             
@@ -266,7 +266,7 @@
                                             <a href="{% url 'prodview' tshirt.id %}">  <img src="{{tshirt.imageURL}}" alt="" /></a>
                                             <h2>${{tshirt.price}}</h2>
                                             <p>{{tshirt.name}}</p>
-                                            <button  data-product={{tshirt.id}} data-action="add" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            <button  data-product={{tshirt.id}} data-action="add" onclick="window.popup()" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                             <!-- <a href="" data-product={{tshirt.id}} data-action="add" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> -->
                                         </div>
                                         
@@ -285,7 +285,7 @@
                                             <a href="{% url 'prodview' pant.id %}"> <img src="{{pant.imageURL}}" alt="" /></a>
                                             <h2>${{pant.price}}</h2>
                                             <p>{{pant.name}}</p>
-                                            <button  data-product={{pant.id}} data-action="add" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            <button  data-product={{pant.id}} data-action="add" onclick="window.popup()" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                            
                                         </div>
                                         
@@ -303,7 +303,7 @@
                                             <a href="{% url 'prodview' shoe.id %}"> <img src="{{shoe.imageURL}}" alt="" /></a>
                                             <h2>${{shoe.price}}</h2>
                                             <p>{{shoe.name}}</p>
-                                            <button  data-product={{shoe.id}} data-action="add" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            <button  data-product={{shoe.id}} data-action="add" onclick="window.popup()" class="btn btn-default add-to-cart update-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                            
                                         </div>
                                         
@@ -389,5 +389,20 @@
     </div>
 </section>
 
-
+<script>
+    window.popup=function(){
+        tempAlert("item added to cart",1000);
+        function tempAlert(msg,duration)
+        {
+            var el = document.createElement("div");
+            el.setAttribute("style","position:fixed;top:2%;left:50%;background-color:#FE980F;width:10%;height:4%;text-align:center;border-radius:5%;color:white;padding-top:3px;" );
+            el.innerHTML = msg;
+            setTimeout(function(){
+                el.parentNode.removeChild(el);
+            },duration);
+            document.body.appendChild(el);
+        }
+            
+    }
+</script>
 {% endblock %}
