@@ -16,7 +16,7 @@
     <!-- Login Form -->
     <form action="{%url 'otp' %}" method="POST" >
       {%csrf_token%}
-      <input type="text" id="login" class="fadeIn second" name="otp" placeholder="enter otp">
+      <input type="text" id="login" class="fadeIn second" name="otp" placeholder="enter otp" required>
 
       <input type="submit" class="fadeIn fourth" value="submit">
       {%for message in messages %}

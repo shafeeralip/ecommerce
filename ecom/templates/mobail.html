@@ -17,7 +17,7 @@
     <!-- Login Form -->
     <form action="{%url 'mobail' %}" method="POST">
         {% csrf_token %}
-      <input type="text" id="login" class="fadeIn second" name="number" placeholder="mobail number">
+      <input type="tel" id="login" class="fadeIn second" name="number" placeholder="mobail number" pattern="[6-9]{1}[0-9]{9}" required>
 
       <input type="submit" class="fadeIn fourth" value="continue">
       {%for message in messages %}

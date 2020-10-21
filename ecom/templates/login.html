@@ -10,8 +10,8 @@
 						<h2>Login to your account</h2>
 						<form action="{% url 'userlogin' %}" method="POST" >
 							{% csrf_token %}
-							<input name="username" type="text" placeholder="Name" />
-							<input name="password" type="password" placeholder="password" />
+							<input name="username" type="text" placeholder="Name" required />
+							<input name="password" type="password" placeholder="password" required/>
 							
 							<button type="submit" class="btn btn-default">Login</button>
 						</form>
@@ -29,10 +29,10 @@
 						<h2>New User Signup!</h2>
 						<form action="{% url 'register'%}" method="POST">
 							{% csrf_token %}
-							<input type="text" name="username" value="{{username}}" placeholder="username"/>
-							<input type="email" name='email' value="{{email}}" placeholder="Email Address"/>
-							<input type="password" name="password" placeholder="Password"/>
-							<input type="text" name="number" placeholder="mobail number"/>
+							<input type="text" name="username" value="{{username}}" placeholder="username" required/>
+							<input type="email" name='email' value="{{email}}" placeholder="Email Address" required/>
+							<input type="password" name="password" placeholder="Password" required/>
+							<input type="tel" name="number" placeholder="mobail number" pattern="[6-9]{1}[0-9]{9}" required/>
 							<button type="submit" class="btn btn-default">Signup</button>
 						</form>
 						{%for message in messages %}
