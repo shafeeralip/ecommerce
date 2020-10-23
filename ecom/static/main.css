@@ -594,7 +594,8 @@ ul.sub-menu {
 }
 
 .item {
-  padding-left: 100px;
+   padding-left:30px;
+  
 }
 
 
@@ -1442,7 +1443,6 @@ h2.title {
   display: block;
   margin-bottom: 185px;
   margin-top: 185px;
-  margin-left:185px;
   overflow: hidden;
 }
 

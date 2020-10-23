@@ -63,6 +63,10 @@ def orders(request):
     return render(request,'userorder.html',{'cartItems':cartItems,'items':items,})
 
 def userlogin(request):
+    data = cartData(request)
+
+    cartItems=data['cartItems']
+
     if request.user.is_authenticated:
         return redirect(home)
 
@@ -74,10 +78,10 @@ def userlogin(request):
             login(request,user)
             return redirect(home)
         else:
-            dicti={'error':"inavlid credention"}
+            dicti={'error':"inavlid credention",'cartItems':cartItems}
             return render(request,'login.html',dicti)
     else:
-        return render(request,'login.html')
+        return render(request,'login.html',{'cartItems':cartItems})
 
 
 
@@ -106,6 +110,10 @@ def userlogin(request):
 
     
 def register(request):
+    data = cartData(request)
+
+    cartItems=data['cartItems']
+
     if request.user.is_authenticated:
         return redirect(home)
     elif request.method=='POST':
@@ -113,7 +121,7 @@ def register(request):
         email=request.POST['email']
         password=request.POST['password']
         number=request.POST['number']
-        dicti = {"username":username,"email":email}
+        dicti = {"username":username,"email":email,'cartItems':cartItems}
         if User.objects.filter(username=username).exists():
             messages.info(request,'username already taken')
             return render(request, "login.html", dicti)
@@ -158,10 +166,10 @@ def register(request):
             print('id:',id)
             request.session['id'] = id
         
-            return render(request,'otp.html')
+            return render(request,'otp.html',{'cartItems':cartItems})
 
             
-    return render(request,'login.html')
+    return render(request,'login.html',{'cartItems':cartItems})
 
 
 def userlogout(request):
@@ -242,13 +250,16 @@ def checkout(request):
 
 
 def mobail(request):
+    data = cartData(request)
+    cartItems=data['cartItems']
 
     if request.method=='POST':
         number = request.POST['number']
-        user=User.objects.get(last_name=number)
-        print(user)
-       
-        if user:
+        if User.objects.filter(last_name=number).exists():
+
+
+            user=User.objects.get(last_name=number)
+            print(user)
             username = user.username
             password=user.first_name
             request.session['username'] =  username
@@ -283,8 +294,15 @@ def mobail(request):
             return render(request,'otp.html')
 
         else:
-            messages.info(request,'mobail number not registerd')
-            return render(request,'mobail.html')
+            messages.info(request,'mobail is not registerd')
+            return render(request,'mobail.html',{'cartItems':cartItems})
+       
+        
+           
+    else:
+            
+        return render(request,'mobail.html',{'cartItems':cartItems})
+           
 
             
             
@@ -297,6 +315,8 @@ def mobail(request):
 
 
 def otp(request):
+    data = cartData(request)
+    cartItems=data['cartItems']
     if request.method=='POST':
         otp=request.POST['otp']
        
@@ -342,10 +362,10 @@ def otp(request):
 
         
         else:
-            messages.info(request,'incorrectotp')
-            return render(request,'otp.html')
+            messages.info(request,'incorrect otp')
+            return render(request,'otp.html',{'cartItems':cartItems})
 
-    return render(request,'otp.html')
+    return render(request,'otp.html',{'cartItems':cartItems})
 
 
 def shirt(request):
@@ -386,4 +406,7 @@ def watch(request):
 
 
 def about(request):
-    return render(request,'about.html')
+    data = cartData(request)
+
+    cartItems=data['cartItems']
+    return render(request,'about.html',{'cartItems':cartItems})

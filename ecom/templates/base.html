@@ -108,7 +108,7 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="logo pull-left">
-							<a href="index.html"><img src="{% static 'images/home/logo.png' %}" alt="" /></a>
+							<a href="/"><img src="{% static 'images/home/logo.png' %}" alt="" /></a>
 						</div>
 					</div>
 					<div class="col-sm-6">
@@ -154,13 +154,13 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="/" class="active">Home</a></li>
-								<li class="dropdown"><a href="#">Acessories<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a href="{% url 'shoe' %}">Acessories<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{% url 'shoe' %}">shoe</a></li>
 										<li><a href="{% url 'watch' %}">watch</a></li> 
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="#">Apparel<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a href="{% url 'shirt' %}">Apparel<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{% url 'shirt' %}">Shirts</a></li>
 										<li><a href="{% url 'pant' %}">Pants</a></li>
@@ -170,12 +170,12 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
+					<!-- <div class="col-sm-3">
 						<div class="search_box pull-right">
 							<input type="text" placeholder="Search"/>
 							
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div><!--/header-bottom-->

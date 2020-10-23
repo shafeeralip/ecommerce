@@ -24,7 +24,7 @@ TEMPLATE_DIR =os.path.join(BASE_DIR,'templates')
 SECRET_KEY = '9e0l*!z4q+!%uky2kqq%#ppdr5jbvphevq+)4r(w!sub%p#3ui'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -134,8 +134,7 @@ CART_SESSION_ID = 'cart'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    '/var/www/static/',
+    os.path.join(BASE_DIR,'static')
 ]
 
 MEDIA_URL = '/img/'
